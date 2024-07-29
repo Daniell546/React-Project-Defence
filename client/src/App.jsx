@@ -6,6 +6,7 @@ import PerfumeDetails from "./components/perfume-details/PerfumeDetails";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import CreatePerfume from "./components/create-perfume/CreatePerfume";
+import Search from "./components/search/Search";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/create" element={<CreatePerfume />} />
+              <Route path="/search" element={<Search />} />
               </Routes>
             </main>
         </div>

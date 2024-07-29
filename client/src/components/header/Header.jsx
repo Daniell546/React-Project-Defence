@@ -16,6 +16,9 @@ export default function Header() {
                 <nav className="main-nav">
                     <ul>
                         <li>
+                            <Link to="/search">Search</Link>
+                        </li>
+                        <li>
                             <Link to="/create">Create</Link>
                         </li>
                         <li>
@@ -26,9 +29,6 @@ export default function Header() {
                         </li>
                         <li>
                             <Link to="#">Logout</Link>
-                        </li>
-                        <li>
-                            <Link to="#">Home</Link>
                         </li>
                     </ul>
                 </nav>
