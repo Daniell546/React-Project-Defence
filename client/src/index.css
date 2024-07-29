@@ -16,6 +16,7 @@ html {
 
 body {
   background-color: #eee;
+  overflow-y: scroll;
 }
 
 body,
@@ -49,13 +50,22 @@ h6 {
   font-size: 1em;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+
+}
+
+/* Header */
+
+
 .section-header .wrapper {
   margin: 0 auto;
   max-width: 1600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5em;
+  padding: 1em;
   background-color: #fff;
 }
 
@@ -67,6 +77,11 @@ h6 {
 .main-nav li {
   display: block;
   list-style: none;
+}
+
+.site-title>* {
+  cursor: pointer;;
+  margin-left: 4em;
 }
 
 .main-nav a,
@@ -85,4 +100,63 @@ h6 {
   opacity: 0.9;
   background-color: #ddd;
   border-radius: 0.3em;
+}
+
+
+/* Home page */
+.section-catalog .wrapper {
+  padding: 2em;
+}
+
+.section-catalog header {
+  padding: 1em 0 3em 0;
+  text-align: center;
+}
+
+.flex-columns.c2 {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+article {
+  flex: 0 0 22%;
+  max-width: 380px;
+  box-shadow: 0 0 0.2em 0 rgb(0, 0, 0, 0.3);
+  border: 1px solid #000;
+  overflow: hidden;
+  border-radius: 0.3em;
+}
+
+article .card {
+  padding: 2em;
+  background-color: #fff;
+}
+
+article .card h4,
+article .card h5 {
+  margin: 0 auto;
+}
+
+article .card .media {
+  margin: auto;
+  display: flex;
+  padding: 0.5em;
+  max-width: 200px;
+}
+
+.price {
+  display: flex;
+  background-color: #000;
+  color: #fff;
+  padding: 1em;
+  gap: 2em;
+  justify-content: center;
+  align-content: end;
+}
+
+.price span {
+  font-size: 1.3em;
+  text-align: center;
 }
