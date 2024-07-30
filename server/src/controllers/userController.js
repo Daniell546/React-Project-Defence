@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
             } else {
                 res.cookie(authCookieName, token, { httpOnly: true });
             }
-            res.status(200).send(user);
+            res.status(200).send({...user, token});
         })
         .catch((err) => {
             return res.status(400).send(getErrorMessage(err));

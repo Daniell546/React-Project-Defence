@@ -14,11 +14,10 @@ export default function Login() {
         },
         async ({ email, password }) => {
             try {
-                console.log(email);
                 await login(email, password);
                 navigate('/');
             } catch (error) {
-                console.log(error.message);
+                console.log('Login Error: ' + error.message);
             }
         }
     )
