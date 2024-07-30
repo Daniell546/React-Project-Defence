@@ -1,11 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Header() {
+<<<<<<< HEAD
     const navigate = useNavigate()
     const { isAuthenticated, user } = useContext(AuthContext)
 
@@ -16,6 +15,8 @@ export default function Header() {
         navigate('/')
     }
 
+=======
+>>>>>>> parent of 86f7027 (login implementation)
     return (
         <section className="section-header">
             <div className="wrapper narrow">
@@ -30,6 +31,7 @@ export default function Header() {
                         <li>
                             <Link to="/search">Search</Link>
                         </li>
+<<<<<<< HEAD
                         {isAuthenticated ? (<>
                             <li>
                                 <Link to="/create">Create</Link>
@@ -52,6 +54,20 @@ export default function Header() {
                             </>
                             )}
 
+=======
+                        <li>
+                            <Link to="/create">Create</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                        <li>
+                            <Link to="/register">Register</Link>
+                        </li>
+                        <li>
+                            <Link to="#">Logout</Link>
+                        </li>
+>>>>>>> parent of 86f7027 (login implementation)
                     </ul>
                 </nav>
             </div>
