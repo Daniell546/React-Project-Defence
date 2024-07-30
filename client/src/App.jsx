@@ -9,19 +9,18 @@ import CreatePerfume from "./components/create-perfume/CreatePerfume";
 import Search from "./components/search/Search";
 import { useState } from "react";
 import { AuthContext } from "./contexts/AuthContext";
+import UserProfile from "./components/user-profile/UserProfile";
 
 function App() {
 
-    const [authState, setAuthState] = useState({});
+    // const [authState, setAuthState] = useState({});
 
-    const changeAuthState = (state) => {
-        setAuthState(state);
-    }
+    // const changeAuthState = (state) => {
+    //     setAuthState(state);
+    // }
     const contextData = {
-        email: localStorage.getItem('email'),
-        accessToken: localStorage.getItem('auth'),
-        isAuthenticated: !!localStorage.getItem('auth'),
-        changeAuthState
+        user: JSON.parse(localStorage.getItem('user')),
+        isAuthenticated: !!localStorage.getItem('user')
     }
 
     return (
@@ -38,6 +37,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/create" element={<CreatePerfume />} />
                         <Route path="/search" element={<Search />} />
+                        <Route path="/user-profile" element={<UserProfile />} />
                     </Routes>
                 </main>
             </div>

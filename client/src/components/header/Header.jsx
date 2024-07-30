@@ -7,12 +7,11 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Header() {
     const navigate = useNavigate()
-    const { isAuthenticated, email, changeAuthState } = useContext(AuthContext)
-    console.log('Email: ' + email);
+    const { isAuthenticated, user } = useContext(AuthContext)
 
     const logoutHandler = () => {
-        localStorage.removeItem('auth')
-        localStorage.removeItem('email')
+        localStorage.removeItem('user')
+
         changeAuthState({})
         navigate('/')
     }
@@ -36,7 +35,7 @@ export default function Header() {
                                 <Link to="/create">Create</Link>
                             </li>
                             <li>
-                                <Link to="/user-profile">{email}'s profile</Link>
+                                <Link to="/user-profile">{user.email}'s profile</Link>
                             </li>
                             <li>
                                 <Link to={''} onClick={logoutHandler}>Logout</Link>
