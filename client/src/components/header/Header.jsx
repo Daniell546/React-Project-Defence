@@ -4,17 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
-    const navigate = useNavigate()
-    const { isAuthenticated, email, changeAuthState } = useContext(AuthContext)
-    console.log('Email: ' + email);
-
-    const logoutHandler = () => {
-        localStorage.removeItem('auth')
-        localStorage.removeItem('email')
-        changeAuthState({})
-        navigate('/')
-    }
-
     return (
         <section className="section-header">
             <div className="wrapper narrow">
@@ -29,28 +18,18 @@ export default function Header() {
                         <li>
                             <Link to="/search">Search</Link>
                         </li>
-                        {isAuthenticated ? (<>
-                            <li>
-                                <Link to="/create">Create</Link>
-                            </li>
-                            <li>
-                                <Link to="/user-profile">{email}'s profile</Link>
-                            </li>
-                            <li>
-                                <Link to={''} onClick={logoutHandler}>Logout</Link>
-                            </li>
-                        </>
-                        )
-                            : (<>
-                                <li>
-                                    <Link to="/login">Login</Link>
-                                </li>
-                                <li>
-                                    <Link to="/register">Register</Link>
-                                </li>
-                            </>
-                            )}
-
+                        <li>
+                            <Link to="/create">Create</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                        <li>
+                            <Link to="/register">Register</Link>
+                        </li>
+                        <li>
+                            <Link to="#">Logout</Link>
+                        </li>
                     </ul>
                 </nav>
             </div>
