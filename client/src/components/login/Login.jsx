@@ -14,7 +14,6 @@ export default function Login() {
         },
         async ({ email, password }) => {
             try {
-                console.log(email);
                 await login(email, password);
                 navigate('/');
             } catch (error) {

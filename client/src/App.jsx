@@ -7,23 +7,48 @@ import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import CreatePerfume from "./components/create-perfume/CreatePerfume";
 import Search from "./components/search/Search";
+import { useState } from "react";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
-    return (
-        <div className="box">
-            <Header />
+    const [authState, setAuthState] = useState({})
 
-            <main id="main-content">
-              <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/create" element={<CreatePerfume />} />
-              <Route path="/search" element={<Search />} />
-              </Routes>
-            </main>
-        </div>
+    const changeAuthState = (state) => {
+        setAuthState(state);
+    }
+
+    const user = JSON.parse(localStorage.getItem('user'))
+    console.log(user);
+    const contexData = {
+        user,
+        isAuthenticated: !!user,
+        changeAuthState
+    }
+
+    // const contexData = {
+    //     email: authState.email,
+    //     token: authState.token,
+    //     isAuthenticated: !!authState.email,
+    //     changeAuthState
+    // }
+    return (
+        <AuthContext.Provider value={contexData}>
+
+            <div className="box">
+                <Header />
+
+                <main id="main-content">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/create" element={<CreatePerfume />} />
+                        <Route path="/search" element={<Search />} />
+                    </Routes>
+                </main>
+            </div>
+        </AuthContext.Provider>
     );
 }
 export default App;
