@@ -7,10 +7,14 @@ export default function Header() {
 <<<<<<< HEAD
     const navigate = useNavigate()
     const { isAuthenticated, user } = useContext(AuthContext)
+    const { isAuthenticated, email, changeAuthState } = useContext(AuthContext)
+    console.log('Email: ' + email);
 
     const logoutHandler = () => {
         localStorage.removeItem('user')
 
+        localStorage.removeItem('auth')
+        localStorage.removeItem('email')
         changeAuthState({})
         navigate('/')
     }
@@ -31,13 +35,12 @@ export default function Header() {
                         <li>
                             <Link to="/search">Search</Link>
                         </li>
-<<<<<<< HEAD
                         {isAuthenticated ? (<>
                             <li>
                                 <Link to="/create">Create</Link>
                             </li>
                             <li>
-                                <Link to="/user-profile">{user.email}'s profile</Link>
+                                <Link to="/user-profile">{email}'s profile</Link>
                             </li>
                             <li>
                                 <Link to={''} onClick={logoutHandler}>Logout</Link>
@@ -54,20 +57,6 @@ export default function Header() {
                             </>
                             )}
 
-=======
-                        <li>
-                            <Link to="/create">Create</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/register">Register</Link>
-                        </li>
-                        <li>
-                            <Link to="#">Logout</Link>
-                        </li>
->>>>>>> parent of 86f7027 (login implementation)
                     </ul>
                 </nav>
             </div>
