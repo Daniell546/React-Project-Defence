@@ -16,7 +16,7 @@ function App() {
             <main id="main-content">
               <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/1/details" element={<PerfumeDetails />} />
+              <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/create" element={<CreatePerfume />} />
