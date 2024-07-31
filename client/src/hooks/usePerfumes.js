@@ -6,14 +6,13 @@ export function useGetAllPerfumes() {
 
     useEffect(() => {
         (async () => {
-            const perfumes = await perfumesAPI.getAll()
+            const perfumes = await perfumesAPI.getAll();
             setPerfumes(perfumes);
         })();
     }, []);
 
-    return [perfumes, setPerfumes]
+    return [perfumes, setPerfumes];
 }
-
 
 export function useGetOnePerfume(perfumeId) {
     const [perfume, setPerfume] = useState({});
@@ -25,14 +24,26 @@ export function useGetOnePerfume(perfumeId) {
         })();
     }, [perfumeId]);
 
-    return [perfume, setPerfume]
+    return [perfume, setPerfume];
 }
-
 
 export function useCreatePerfume() {
     const perfumeCreateHandler = async (perfumeData) => {
-        await perfumesAPI.createPerfume(perfumeData)
-    }
+        await perfumesAPI.createPerfume(perfumeData);
+    };
 
     return perfumeCreateHandler;
+}
+
+export function useSearchPerfumes(text, criteria) {
+    const [perfumes, setPerfumes] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const result = await perfumesAPI.searchByCriteria(text, criteria);
+            setPerfumes(result)
+        })();
+    }, [text, criteria]);
+
+    return [perfumes, setPerfumes];
 }

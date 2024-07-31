@@ -13,23 +13,30 @@ exports.delete = (id) => Perfume.findByIdAndDelete(id);
 exports.getByUser = async (owner) => {
     let all = await Perfume.find().lean();
     const newArr = [];
-    for(let p of all) {
-        if(p.owner == owner._id) {
-            newArr.push(p)
+    for (let p of all) {
+        if (p.owner == owner._id) {
+            newArr.push(p);
         }
     }
     return newArr;
 };
 
-
-exports.search = async (brand) => {
-    let all = await Perfume.find().lean()
-    const newArr = [];
-    for(let p of all) {
-        if(p.brand.toLocaleLowerCase().includes(brand.toLocaleLowerCase())) {
-            newArr.push(p)
+exports.search = async (text, criteria) => {
+    let all = await Perfume.find().lean();
+    if (text && criteria) {
+        const newArr = [];
+        for (let p of all) {
+            if (
+                p[criteria]
+                    .toLocaleLowerCase()
+                    .includes(text.toLocaleLowerCase())
+            ) {
+                newArr.push(p);
+            }
         }
+        return newArr;
+    } else {
+        return all
     }
 
-    return newArr;
-}
+};

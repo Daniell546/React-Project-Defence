@@ -15,11 +15,10 @@ router.get("/:perfumeId", async (req, res) => {
     return perfume;
 });
 
-router.get("/search/:brand", async (req, res) => {
-    const brand = req.params.brand;
-    
-    const perfumes = await perfumeManager.search(brand)
-
+router.get("/search/:text/:criteria", async (req, res) => {
+    const text = req.params.text;
+    const criteria = req.params.criteria;
+    const perfumes = await perfumeManager.search(text, criteria)
     res.send(perfumes);
     return perfumes
 });

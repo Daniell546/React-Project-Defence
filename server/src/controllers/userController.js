@@ -15,8 +15,15 @@ router.post("/login", (req, res) => {
     const { email, password } = req.body;
     User.findOne({ email })
         .then((user) => {
+            if (email === "") {
+                throw new Error("Please enter email");
+            }
+
+            if (password === "") {
+                throw new Error("Please enter password");
+            }
             if (!user) {
-                throw new Error("Wrong email!");
+                throw new Error("Invalid email!");
             }
             return Promise.all([
                 user,
@@ -25,8 +32,8 @@ router.post("/login", (req, res) => {
         })
         .then(([user, match]) => {
             if (!match) {
-                res.status(401).send({ message: "Wrong email or password" });
-                return;
+                // res.status(401).send("Wrong email or password");
+                throw new Error("Invalid password")
             }
             user = bsonToJson(user);
             const token = createToken({ id: user._id });
@@ -40,7 +47,7 @@ router.post("/login", (req, res) => {
             } else {
                 res.cookie(authCookieName, token, { httpOnly: true });
             }
-            res.status(200).send({...user, token});
+            res.status(200).send({ ...user, token });
         })
         .catch((err) => {
             return res.status(400).send(getErrorMessage(err));
@@ -74,7 +81,7 @@ router.post("/register", async (req, res) => {
             } else {
                 res.cookie(authCookieName, token, { httpOnly: true });
             }
-            res.status(200).send({...createdUser, token});
+            res.status(200).send({ ...createdUser, token });
         })
         .catch((err) => {
             res.status(400).send(getErrorMessage(err));

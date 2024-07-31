@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useCreatePerfume } from "../../hooks/usePerfumes";
 
+
 const initialValues = {
     brand: '',
     model: '',
@@ -19,7 +20,6 @@ export default function CreatePerfume() {
             perfumeCreateHandler(values);
             navigate('/')
         } catch (error) {
-            console.log('err : ', error);
         }
     }
 

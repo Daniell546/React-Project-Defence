@@ -1,19 +1,29 @@
+import { useForm } from "../../hooks/useForm";
+import { useSearchPerfumes } from "../../hooks/usePerfumes";
+
 import { Link } from "react-router-dom";
 
 export default function Search() {
+    const { values, changeHandler } = useForm({
+        text: '',
+        criteria: 'brand'
+    });
+
+    const [perfumes] = useSearchPerfumes(values.text, values.criteria);
+
     return (
         <section className="section-search">
             <div className="wrapper">
                 <h4>Search by criteria</h4>
-                <form action="#">
-                    <input type="text" placeholder="Search..." />
+                <form >
+                    <input type="text" name="text" value={values.text} onChange={changeHandler} placeholder="Search..." />
 
                     <div className="select-style">
                         <label htmlFor="criteria">Criteria: </label>
-
                         <select
                             className="criteria"
                             name="criteria"
+                            onChange={changeHandler}
                             id="criteria"
                             defaultValue={"brand"}
                         >
@@ -21,8 +31,32 @@ export default function Search() {
                             <option value="model">Model</option>
                         </select>
                     </div>
-                    <button>Search</button>
                 </form>
+
+                <div className="flex-columns c2">
+                    {perfumes.map(perfume => (
+                        <article key={perfume._id}>
+                            <Link to={`/perfume/${perfume._id}/details`}>
+                                <div className="card">
+                                    <div className="media">
+                                        <img
+                                            src={perfume.imageUrl}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <h4 className="brand">{perfume.brand}</h4>
+                                    <h5 className="model">{perfume.model}</h5>
+                                </div>
+                                <div className="price">
+                                    <span>${perfume.price}</span>
+                                </div>
+                            </Link>
+                        </article>
+                    ))}
+
+
+
+                </div>
             </div>
         </section>
     );

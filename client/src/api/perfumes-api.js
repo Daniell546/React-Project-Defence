@@ -19,10 +19,21 @@ export const createPerfume = async (data) => {
     }
 };
 
+export const searchByCriteria = async (text, criteria) => {
+    let perfumes = [];
+    if (text != "") {
+        perfumes = await request.get(`${BASE_URL}/search/${text}/${criteria}`);
+    } else {
+        perfumes = await getAll()
+    }
+    return Object.values(perfumes);
+};
+
 const perfumesAPI = {
     getAll,
     getOne,
     createPerfume,
+    searchByCriteria,
 };
 
 export default perfumesAPI;

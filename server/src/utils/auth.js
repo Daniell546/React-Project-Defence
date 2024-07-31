@@ -48,6 +48,7 @@ const TokenBlackList = require("../models/TokenBlackList");
 function auth(redirectUnauthenticated = true) {
     return function (req, res, next) {
         const authHeader = req.headers["authorization"];
+
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             if (redirectUnauthenticated) {
                 return res.status(401).send({ message: "Invalid token!" });
@@ -61,6 +62,7 @@ function auth(redirectUnauthenticated = true) {
                 if (blacklistedToken) {
                     return Promise.reject(new Error("blacklisted token"));
                 }
+
                 User.findById(data.id).then((user) => {
                     if (!user) {
                         return Promise.reject(new Error("User not found"));

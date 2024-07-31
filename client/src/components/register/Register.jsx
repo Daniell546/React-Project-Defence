@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRegister } from "../../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
 
+import { toast } from 'react-toastify';
+
 export default function Register() {
 
     const register = useRegister();
@@ -11,8 +13,9 @@ export default function Register() {
         try {
             await register(email, phoneNumber, password, rePass)
             navigate('/');
+            toast.success('Register successful')
         } catch (error) {
-            console.log(error);
+            toast.error(error)
         }
     }
 

@@ -5,6 +5,8 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
+import { toast } from 'react-toastify';
+
 export default function Header() {
 
     const navigate = useNavigate();
@@ -12,9 +14,18 @@ export default function Header() {
 
     const logoutHandler = (e) => {
         e.preventDefault();
-        localStorage.removeItem('user');
-        changeAuthState({})
-        navigate('/')
+        try {
+            localStorage.removeItem('user');
+            changeAuthState({})
+            toast.success('Logout successful')
+            
+        } catch (error) {
+            toast.error('Logout unsuccessful')
+        } finally{
+
+            navigate('/')
+        }
+        
     }
 
     return (

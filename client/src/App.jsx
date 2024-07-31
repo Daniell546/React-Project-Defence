@@ -11,6 +11,9 @@ import { useState } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import UserProfile from "./components/user-profile/UserProfile";
 
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
     const [authState, setAuthState] = useState({})
 
@@ -25,18 +28,13 @@ function App() {
         changeAuthState
     }
 
-    // const contexData = {
-    //     email: authState.email,
-    //     token: authState.token,
-    //     isAuthenticated: !!authState.email,
-    //     changeAuthState
-    // }
     return (
         <AuthContext.Provider value={contexData}>
 
             <div className="box">
                 <Header />
 
+                <ToastContainer position="bottom-left" draggable theme="colored"/>
                 <main id="main-content">
                     <Routes>
                         <Route path="/" element={<Home />} />

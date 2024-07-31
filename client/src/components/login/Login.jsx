@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
 
+import { toast } from 'react-toastify';
+
 export default function Login() {
 
     const login = useLogin();
@@ -15,9 +17,12 @@ export default function Login() {
         async ({ email, password }) => {
             try {
                 await login(email, password);
+                toast.success('Log in successfully')
                 navigate('/');
+                
             } catch (error) {
-                console.log(error);
+                toast.error(error)
+
             }
         }
     )
