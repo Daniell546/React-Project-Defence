@@ -11,10 +11,18 @@ export const getAll = async () => {
 
 export const getOne = (perfumeId) => request.get(`${BASE_URL}/${perfumeId}`);
 
+export const createPerfume = async (data) => {
+    const user = localStorage.getItem("user");
+    if (user) {
+        const owner = JSON.parse(user);
+        await request.post(`${BASE_URL}/perfumes/create`, { ...data, owner });
+    }
+};
 
 const perfumesAPI = {
     getAll,
-    getOne
+    getOne,
+    createPerfume,
 };
 
 export default perfumesAPI;

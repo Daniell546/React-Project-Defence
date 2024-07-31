@@ -7,12 +7,13 @@ const {getErrorMessage} = require('../utils/getErrorMessage')
 
 router.post("/create", auth(), async (req, res) => {
     const data = { ...req.body };
+    console.log(data);
     try {
         const createdPerfume = await perfumeManager.create(data);
         res.status(200).send(createdPerfume);
         return createdPerfume;
     } catch (error) {
-        res.send(getErrorMessage(error));
+        return res.status(400).send(getErrorMessage(error));
     }
 });
 

@@ -1,16 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "../../hooks/useForm";
+import { useCreatePerfume } from "../../hooks/usePerfumes";
 
+const initialValues = {
+    brand: '',
+    model: '',
+    price: '',
+    imageUrl: '',
+    description: ''
+}
 export default function CreatePerfume() {
+
+    const perfumeCreateHandler = useCreatePerfume();
+    const navigate = useNavigate();
+
+    const createHandler = (values) => {
+        try {
+            perfumeCreateHandler(values);
+            navigate('/')
+        } catch (error) {
+            console.log('err : ', error);
+        }
+    }
+
+    const { values, changeHandler, submitHandler } = useForm(initialValues, createHandler)
+
     return (
         <section className="section-create">
             <div className="wrapper">
-                <form action="#">
+                <form onSubmit={submitHandler}>
                     <h4>Create poster</h4>
-                    <input type="text" placeholder="Enter brand name..." />
-                    <input type="text" placeholder="Enter model..." />
-                    <input type="text" placeholder="Enter price..." />
-                    <input type="text" placeholder="Enter imageUrl..." />
-                    <input type="text" placeholder="Enter description..." />
+                    <input type="text" name="brand" value={values.brand} onChange={changeHandler} placeholder="Enter brand name..." />
+                    <input type="text" name="model" value={values.model} onChange={changeHandler} placeholder="Enter model..." />
+                    <input type="text" name="price" value={values.price} onChange={changeHandler} placeholder="Enter price..." />
+                    <input type="text" name="imageUrl" value={values.imageUrl} onChange={changeHandler} placeholder="Enter imageUrl..." />
+                    <input type="text" name="description" value={values.description} onChange={changeHandler} placeholder="Enter description..." />
                     <button>Create</button>
                     <span>
                         <Link to={"/"}>Back to catalog</Link>

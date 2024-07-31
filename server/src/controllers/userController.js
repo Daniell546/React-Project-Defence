@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
             } else {
                 res.cookie(authCookieName, token, { httpOnly: true });
             }
-            res.status(200).send(user);
+            res.status(200).send({...user, token});
         })
         .catch((err) => {
             return res.status(400).send(getErrorMessage(err));
@@ -74,7 +74,7 @@ router.post("/register", async (req, res) => {
             } else {
                 res.cookie(authCookieName, token, { httpOnly: true });
             }
-            res.status(200).send(createdUser);
+            res.status(200).send({...createdUser, token});
         })
         .catch((err) => {
             res.status(400).send(getErrorMessage(err));

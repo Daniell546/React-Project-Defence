@@ -27,3 +27,12 @@ export function useGetOnePerfume(perfumeId) {
 
     return [perfume, setPerfume]
 }
+
+
+export function useCreatePerfume() {
+    const perfumeCreateHandler = async (perfumeData) => {
+        await perfumesAPI.createPerfume(perfumeData)
+    }
+
+    return perfumeCreateHandler;
+}

@@ -6,31 +6,27 @@ const perfumeModel = new mongoose.Schema({
     },
     brand: {
         type: String,
-        required: [true, 'Brand required!'],
+        required: [true, JSON.stringify('Brand required!')],
     },
     model: {
-        required: [true, 'Model required!'],
+        required: [true, JSON.stringify('Model required!')],
         type: String,
     },
-    amount: {
-        required: [true, 'Amount required!'],
-        type: Number,
-    },
     imageUrl: {
-        required: [true, 'ImageUrl required!'],
+        required: [true, JSON.stringify('ImageUrl required!')],
         type: String,
     },
     price: {
-        required: [true, 'Price required!'],
+        required: [true, JSON.stringify('Price required!')],
         type: Number,
         minLength: 0,
     },
     description: {
-        required: [true, 'Short description required!'],
+        required: [true, JSON.stringify('Short description required!')],
         type: String,
     },
     owner: {
-        required: true,
+        required: [true, JSON.stringify("Not authenticated")],
         type: mongoose.Types.ObjectId,
         ref: "User",
     },

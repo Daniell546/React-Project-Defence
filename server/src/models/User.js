@@ -4,15 +4,15 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: [true, "Email is required!"],
+        required: [true, JSON.stringify("Email is required!")],
         unique: [true, "Email already exist..."],
     },
     phonenumber: {
-        required: [true, "Phonenumber is required!"],
+        required: [true, JSON.stringify("Phonenumber is required!")],
         type: Number,
     },
     password: {
-        required: [true, "Password is required!"],
+        required: [true, JSON.stringify("Password is required!")],
         type: String,
     },
     owner_id: {

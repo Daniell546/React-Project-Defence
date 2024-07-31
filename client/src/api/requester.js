@@ -1,5 +1,8 @@
 async function requester(method, url, data) {
-    const options = {};
+    const options = {
+        method,
+        headers: {}
+    };
 
     if (method !== "GET") {
         options.method = method;
@@ -13,12 +16,23 @@ async function requester(method, url, data) {
         options.body = JSON.stringify(data);
     }
 
-    if (method === "POST" && (url === "http://localhost:3000/api/user/login")) {
-        options.credentials = "include"
+    const user = localStorage.getItem('user');
+
+    if (user) {
+        const token = JSON.parse(user).token
+        options.headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    if (method === "POST" && url === "http://localhost:3000/api/user/login") {
+        options.credentials = "include";
     }
 
     const response = await fetch(url, options);
-    const result = response.json();
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw result;
+    }
 
     return result;
 }
