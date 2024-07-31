@@ -1,10 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useGetOnePerfume } from "../../hooks/usePerfumes";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function PerfumeDetails() {
 
-    const {perfumeId} = useParams()
+    const { perfumeId } = useParams()
     const [perfume, setPerfume] = useGetOnePerfume(perfumeId)
+
+    const { isAuthenticated } = useContext(AuthContext)
 
     return (
         <section className="section-details">
@@ -27,6 +31,12 @@ export default function PerfumeDetails() {
                         {perfume.description}
                     </p>
                 </div>
+                {isAuthenticated && (
+
+                    <div className="addCart">
+                        <button>Add to cart</button>
+                    </div>
+                )}
             </div>
         </section>
     );
