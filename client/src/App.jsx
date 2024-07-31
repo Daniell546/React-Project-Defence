@@ -9,6 +9,7 @@ import CreatePerfume from "./components/create-perfume/CreatePerfume";
 import Search from "./components/search/Search";
 import { useState } from "react";
 import { AuthContext } from "./contexts/AuthContext";
+import UserProfile from "./components/user-profile/UserProfile";
 
 function App() {
     const [authState, setAuthState] = useState({})
@@ -45,6 +46,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/create" element={<CreatePerfume />} />
                         <Route path="/search" element={<Search />} />
+                        <Route path="/user-profile" element={<UserProfile />} />
                     </Routes>
                 </main>
             </div>

@@ -8,9 +8,10 @@ import { AuthContext } from "../../contexts/AuthContext";
 export default function Header() {
 
     const navigate = useNavigate();
-    const { isAuthenticated, changeAuthState } = useContext(AuthContext);
+    const { isAuthenticated, changeAuthState, user } = useContext(AuthContext);
 
-    const logoutHandler = () => {
+    const logoutHandler = (e) => {
+        e.preventDefault();
         localStorage.removeItem('user');
         changeAuthState({})
         navigate('/')
@@ -34,6 +35,9 @@ export default function Header() {
                             <>
                                 <li>
                                     <Link to="/create">Create</Link>
+                                </li>
+                                <li>
+                                    <Link to="/user-profile">{user.email}'s profile</Link>
                                 </li>
                                 <li>
                                     <Link to="#" onClick={logoutHandler}>Logout</Link>
