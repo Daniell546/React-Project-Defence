@@ -11,8 +11,9 @@ import { useState } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import UserProfile from "./components/user-profile/UserProfile";
 
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EditPerfume from "./components/edit-perfume/EditPerfume";
 
 function App() {
     const [authState, setAuthState] = useState({})
@@ -34,16 +35,19 @@ function App() {
             <div className="box">
                 <Header />
 
-                <ToastContainer position="bottom-left" draggable theme="colored"/>
+                <ToastContainer position="bottom-left" draggable theme="colored" autoClose={2000} closeOnClick/>
                 <main id="main-content">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
+
                         <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/user-profile" element={<UserProfile />} />
+
                         <Route path="/create" element={<CreatePerfume />} />
                         <Route path="/search" element={<Search />} />
-                        <Route path="/user-profile" element={<UserProfile />} />
+                        <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
+                        <Route path="/perfume/:perfumeId/edit" element={<EditPerfume />} />
                     </Routes>
                 </main>
             </div>

@@ -100,6 +100,7 @@ router.post("/logout", auth(), (req, res) => {
     const token = req.cookies[authCookieName];
     TokenBlacklist.create({ token })
         .then(() => {
+            
             res.clearCookie(authCookieName)
                 .status(204)
                 .send({ message: "Logged out!" });

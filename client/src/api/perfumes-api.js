@@ -19,6 +19,8 @@ export const createPerfume = async (data) => {
     }
 };
 
+export const deletePerfume = async (perfumeId) => request.del(`${BASE_URL}/perfumes/${perfumeId}/delete`)
+
 export const searchByCriteria = async (text, criteria) => {
     let perfumes = [];
     if (text != "") {
@@ -34,6 +36,7 @@ const perfumesAPI = {
     getOne,
     createPerfume,
     searchByCriteria,
+    deletePerfume
 };
 
 export default perfumesAPI;

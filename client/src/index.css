@@ -237,12 +237,19 @@ article .price span {
     min-width: 36ch;
 }
 
+.section-details .wrapper .buttons {
+    display: flex;
+    justify-content: end;
+    gap: 2em;
+}
+
 .section-details .wrapper .addCart{
     display: flex;
     justify-content: end;
 }
 
-.section-search .wrapper form button,
+
+.section-search .wrapper form button,.section-details .wrapper .addCart button a,
 .section-details .wrapper .addCart button{
     padding: 0.5em;
     color: #fff;
@@ -250,6 +257,8 @@ article .price span {
     border-radius: 0.2em;
     border: none;
     cursor: pointer;
+    width: 130px;
+
 }
 
 
