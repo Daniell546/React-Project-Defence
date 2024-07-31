@@ -235,6 +235,22 @@ article .card .media {
     min-width: 36ch;
 }
 
+.section-details .wrapper .addCart{
+    display: flex;
+    justify-content: end;
+}
+
+.section-search .wrapper form button,
+.section-details .wrapper .addCart button{
+    padding: 0.5em;
+    color: #fff;
+    background-color: #000;
+    border-radius: 0.2em;
+    border: none;
+    cursor: pointer;
+}
+
+
 /* Create, Register and Login */
 
 .section-create .wrapper,
@@ -314,7 +330,7 @@ article .card .media {
 /* Search page */
 
 .section-search .wrapper {
-    margin: 2em auto;
+    margin: auto;
 }
 
 .section-search h4 {

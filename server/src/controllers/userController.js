@@ -48,7 +48,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-    const { email, phonenumber, password, rePass } = req.body;
+    const { email, phoneNumber: phonenumber, password, rePass } = req.body;
     try {
         if (password != rePass) {
             throw new Error("Passwords dont match!");
