@@ -1,29 +1,41 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOnePerfume } from "../../hooks/usePerfumes";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import perfumesAPI from "../../api/perfumes-api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function PerfumeDetails() {
-
-    const { perfumeId } = useParams()
-    const [perfume, setPerfume] = useGetOnePerfume(perfumeId)
+    const { perfumeId } = useParams();
     const navigate = useNavigate();
+    const { isAuthenticated } = useContext(AuthContext);
+    const [user, setUser] = useState({});
+    const [isOwner, setIsOwner] = useState(false);
 
-    const { isAuthenticated } = useContext(AuthContext)
+    const [perfume] = useGetOnePerfume(perfumeId);
 
-    const deleteHandler = () => {
-        try {
-            perfumesAPI.deletePerfume(perfume._id)
-            navigate('/')
-            toast.success('Successful deletion')
-        } catch (error) {
-            toast.error(error)
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        setUser(userData);
+    }, []);
 
+    useEffect(() => {
+        if (user && perfume) {
+            setIsOwner(user._id === perfume.owner);
+            console.log(perfume); // This will now log after user and perfume are updated
         }
-    }
+    }, [user, perfume]);
+
+    const deleteHandler = async () => {
+        try {
+            await perfumesAPI.deletePerfume(perfume._id);
+            navigate('/');
+            toast.success('Successful deletion');
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
 
     return (
         <section className="section-details">
@@ -50,15 +62,18 @@ export default function PerfumeDetails() {
                     <div className="addCart">
                         <button><Link to={'/'}>Back</Link></button>
                     </div>
-                    <div className="addCart">
-                        <button onClick={deleteHandler}>Delete</button>
-                    </div>
-                    <div className="addCart">
-                        <button><Link to={`/perfume/${perfume._id}/edit`}>Edit</Link></button>
-                    </div>
+                    {isOwner && isAuthenticated && (
+                        <>
+                            <div className="addCart">
+                                <button onClick={deleteHandler}>Delete</button>
+                            </div>
+                            <div className="addCart">
+                                <button><Link to={`/perfume/${perfume._id}/edit`}>Edit</Link></button>
+                            </div>
+                        </>
+                    )}
 
                     {isAuthenticated && (
-
                         <div className="addCart">
                             <button>Add to cart</button>
                         </div>

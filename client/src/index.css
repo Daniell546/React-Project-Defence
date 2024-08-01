@@ -120,6 +120,10 @@ a {
     justify-content: center;
 }
 
+.emptyContainer {
+    font-size: 3em;
+}
+
 article {
     flex-shrink: 1;
     max-width: 350px;

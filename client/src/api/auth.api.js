@@ -17,3 +17,15 @@ export const register = (email, phoneNumber, password, rePass) =>
         password,
         rePass,
     });
+
+export const fetchUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
+};
+
+const authAPI = {
+    fetchUser,
+    register,
+    login
+};
+
+export default authAPI;

@@ -3,7 +3,7 @@ const router = express.Router();
 const perfumeManager = require("../managers/perfumeManager");
 
 router.get("/home", async (req, res) => {
-    let perfumes = await perfumeManager.getPerfumes().lean();
+    let perfumes = (await perfumeManager.getPerfumes().lean()).reverse();
     res.send(perfumes);
     return perfumes;
 });
