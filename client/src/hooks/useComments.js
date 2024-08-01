@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { createComment, getAllCommentsByPerfume } from "../api/comments-api";
 
-export function useGetommentsByPerfume(perfumeId) {
+export function useGetCommentsByPerfume(perfumeId) {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         (async () => {
             const comments = await getAllCommentsByPerfume(perfumeId)
             setComments(comments);
-        })
+        })()
     }, [perfumeId]);
 
     return [comments, setComments];
