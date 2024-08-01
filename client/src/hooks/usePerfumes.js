@@ -36,6 +36,14 @@ export function useCreatePerfume() {
     return perfumeCreateHandler;
 }
 
+export function useEditPerfume() {
+    const editPerfumeHandler = async (perfumeId, newPerfumeData) => {
+        await perfumesAPI.editPerfume(perfumeId, newPerfumeData)
+    }
+
+    return editPerfumeHandler;
+}
+
 export function useSearchPerfumes(text, criteria) {
     const [perfumes, setPerfumes] = useState([]);
 

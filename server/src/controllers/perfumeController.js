@@ -3,7 +3,7 @@ const router = express.Router();
 const perfumeManager = require("../managers/perfumeManager");
 const { auth } = require("../utils");
 const { MongooseError } = require("mongoose");
-const {getErrorMessage} = require('../utils/getErrorMessage')
+const { getErrorMessage } = require("../utils/getErrorMessage");
 
 router.post("/create", auth(), async (req, res) => {
     const data = { ...req.body };
@@ -16,31 +16,31 @@ router.post("/create", auth(), async (req, res) => {
     }
 });
 
-router.put("/:perfumeId/edit", async (req, res) => {
+router.put("/:perfumeId/edit", auth(), async (req, res) => {
     const id = req.params.perfumeId;
-    const newData = req.body;
+    const body = req.body;
+    const newData = body.newPerfumeData;
+    const owner = body.owner;
     try {
-        const perfume = await perfumeManager.edit(id, newData);
+        const perfume = await perfumeManager.edit(id, newData, owner);
         res.send(perfume);
         return perfume;
-        
     } catch (error) {
-        return res.send(getErrorMessage(error))
+        return res.send(getErrorMessage(error));
     }
 });
 
-router.put("/:perfumeId/edit/amount", async(req, res) => {
+router.put("/:perfumeId/edit/amount", async (req, res) => {
     const id = req.params.perfumeId;
     const amount = req.body.amount;
     try {
         const perfume = await perfumeManager.edit(id, req.body);
         res.send(perfume);
         return perfume;
-        
     } catch (error) {
-        return res.send(getErrorMessage(error))
+        return res.send(getErrorMessage(error));
     }
-})
+});
 
 router.delete("/:perfumeId/delete", async (req, res) => {
     const id = req.params.perfumeId;
@@ -48,9 +48,8 @@ router.delete("/:perfumeId/delete", async (req, res) => {
         const deletedPerfume = await perfumeManager.delete(id);
         res.send(deletedPerfume);
         return deletedPerfume;
-        
     } catch (error) {
-        return res.send(getErrorMessage(error))
+        return res.send(getErrorMessage(error));
     }
 });
 

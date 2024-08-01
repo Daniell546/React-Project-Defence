@@ -6,7 +6,13 @@ exports.create = (data) => Perfume.create(data);
 
 exports.getOnePerfume = (id) => Perfume.findById(id);
 
-exports.edit = (id, perfume) => Perfume.findByIdAndUpdate(id, perfume);
+exports.edit = async (id, perfume, owner) => {
+    const oldPerfume = await Perfume.findById(id).lean();
+    if(oldPerfume.owner != owner._id) {
+        throw new Error("Invalid user, trying to edit perfume article")
+    }
+    return await Perfume.findByIdAndUpdate(id, perfume);
+};
 
 exports.delete = (id) => Perfume.findByIdAndDelete(id);
 
@@ -36,7 +42,6 @@ exports.search = async (text, criteria) => {
         }
         return newArr;
     } else {
-        return all
+        return all;
     }
-
 };

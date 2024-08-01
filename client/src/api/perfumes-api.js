@@ -19,14 +19,27 @@ export const createPerfume = async (data) => {
     }
 };
 
-export const deletePerfume = async (perfumeId) => request.del(`${BASE_URL}/perfumes/${perfumeId}/delete`)
+export const editPerfume = async (perfumeId, newPerfumeData) => {
+    let user = localStorage.getItem("user");
+    if (user) {
+        const owner = JSON.parse(user);
+        await request.put(
+            `${BASE_URL}/perfumes/${perfumeId}/edit`,
+            {newPerfumeData,
+            owner}
+        );
+    }
+};
+
+export const deletePerfume = async (perfumeId) =>
+    request.del(`${BASE_URL}/perfumes/${perfumeId}/delete`);
 
 export const searchByCriteria = async (text, criteria) => {
     let perfumes = [];
     if (text != "") {
         perfumes = await request.get(`${BASE_URL}/search/${text}/${criteria}`);
     } else {
-        perfumes = await getAll()
+        perfumes = await getAll();
     }
     return Object.values(perfumes);
 };
@@ -36,7 +49,8 @@ const perfumesAPI = {
     getOne,
     createPerfume,
     searchByCriteria,
-    deletePerfume
+    deletePerfume,
+    editPerfume,
 };
 
 export default perfumesAPI;

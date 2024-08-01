@@ -1,22 +1,55 @@
-import { useParams } from "react-router-dom";
-import { useGetOnePerfume } from "../../hooks/usePerfumes";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEditPerfume, useGetOnePerfume } from "../../hooks/usePerfumes";
 import { useForm } from "../../hooks/useForm";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function EditPerfume() {
     const { perfumeId } = useParams();
     const [perfume] = useGetOnePerfume(perfumeId);
-    
-    //* TODO: Fix undefined initialValues!
-    const initialValues = {
-        brand: perfume.brand,
-        model: perfume.model,
-        price: perfume.price,
-        imageUrl: perfume.imageUrl,
-        description: perfume.description,
+
+    const editPerfumeHandler = useEditPerfume();
+    const navigate = useNavigate();
+
+    const createHandler = async (values) => {
+        try {
+            await editPerfumeHandler(perfumeId, values)
+            navigate(`/perfume/${perfumeId}/details`)
+            toast.success('Edit successful')
+        } catch (error) {
+            toast.error(error)
+            
+        }
     }
 
-    const { values, changeHandler, submitHandler } = useForm(initialValues)
+
+    const initialValues = {
+        brand: '',
+        model: '',
+        price: '',
+        imageUrl: '',
+        description: '',
+    };
+
+    const { values, changeHandler, submitHandler, resetForm } = useForm(initialValues, createHandler);
+
+    useEffect(() => {
+        if (perfume) {
+            resetForm({
+                brand: perfume.brand || '',
+                model: perfume.model || '',
+                price: perfume.price || '',
+                imageUrl: perfume.imageUrl || '',
+                description: perfume.description || '',
+            });
+        }
+    }, [perfume, resetForm]);
+
+    if (!perfume) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <section className="section-create">
             <div className="wrapper">

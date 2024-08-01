@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import perfumesAPI from "../../api/perfumes-api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import authAPI from "../../api/auth.api";
 
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
@@ -16,14 +17,13 @@ export default function PerfumeDetails() {
     const [perfume] = useGetOnePerfume(perfumeId);
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user'));
+        const userData = authAPI.fetchUser();
         setUser(userData);
     }, []);
 
     useEffect(() => {
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
-            console.log(perfume); // This will now log after user and perfume are updated
         }
     }, [user, perfume]);
 
