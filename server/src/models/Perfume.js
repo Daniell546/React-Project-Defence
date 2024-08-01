@@ -30,6 +30,7 @@ const perfumeModel = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "User",
     },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 const Perfume = mongoose.model("Perfume", perfumeModel);

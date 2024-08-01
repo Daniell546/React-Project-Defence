@@ -114,10 +114,12 @@ a {
 }
 
 .flex-columns.c2 {
+    margin: 0 auto;
     display: flex;
     gap: 2em;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    max-width: 1500px;
 }
 
 .emptyContainer {
@@ -125,7 +127,7 @@ a {
 }
 
 article {
-    flex-shrink: 1;
+    flex: 0 1 auto;
     max-width: 350px;
     box-shadow: 0 0 0.2em 0 rgb(0, 0, 0, 0.3);
     border: 1px solid #000;
@@ -160,7 +162,7 @@ article .card .media {
     margin: auto;
     display: flex;
     padding: 0.5em;
-    max-width: 400px;
+    max-width: 250px;
 }
 
 article .price {

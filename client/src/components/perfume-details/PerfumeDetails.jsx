@@ -6,6 +6,8 @@ import perfumesAPI from "../../api/perfumes-api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import authAPI from "../../api/auth.api";
+import { useForm } from "../../hooks/useForm";
+import { useCreateComment } from "../../hooks/useComments";
 
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
@@ -13,14 +15,14 @@ export default function PerfumeDetails() {
     const { isAuthenticated } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [isOwner, setIsOwner] = useState(false);
-
     const [perfume] = useGetOnePerfume(perfumeId);
-
+    const commentCreateHandler = useCreateComment();
+    
     useEffect(() => {
         const userData = authAPI.fetchUser();
         setUser(userData);
     }, []);
-
+    
     useEffect(() => {
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
@@ -36,6 +38,17 @@ export default function PerfumeDetails() {
             toast.error(error.message);
         }
     };
+
+    const addCommentHandler = async (values) => {
+        try {
+            await commentCreateHandler(perfumeId, values)
+            toast.success('comments created')
+        } catch (error) {
+            
+        }
+    }
+
+    const {values, changeHandler, submitHandler} = useForm({text: ''}, addCommentHandler)
 
     return (
         <section className="section-details">
@@ -79,6 +92,19 @@ export default function PerfumeDetails() {
                         </div>
                     )}
                 </div>
+            </div>
+
+            <div className="comments">
+                <form onSubmit={submitHandler}>
+                    <input type="text" name="text" value={values.text} onChange={changeHandler} placeholder="Comment..."/>
+                    <button>Add</button>
+                </form>
+                {/* <div className="comments-list">
+                    <div className="comment">
+                        <span>Daniel</span>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis quasi dignissimos, laboriosam quam iusto sapiente, repellendus magnam placeat rerum cupiditate nesciunt</p>
+                    </div>
+                </div> */}
             </div>
         </section>
     );

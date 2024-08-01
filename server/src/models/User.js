@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "User",
     },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] 
 });
 
 userSchema.methods = {
