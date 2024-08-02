@@ -3,7 +3,7 @@ import * as request from "./requester";
 const BASE_URL = "http://localhost:3000/api";
 
 export const getAllCommentsByPerfume = async (perfumeId) => {
-    const result = await request.get(`${BASE_URL}/comments/all/66118af8155e63eef5ba23e3`);
+    const result = await request.get(`${BASE_URL}/comments/all/${perfumeId}`);
     console.log(result);
     const comments = Object.values(result);
     return comments;

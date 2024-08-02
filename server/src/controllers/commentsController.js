@@ -11,7 +11,7 @@ router.post('/create', async(req, res) => {
     const perfumeId = req.body.perfumeId;
     const comment = req.body.commentData.text;
     const userId = req.body.userId;
-
+    
     const commentData = {
         comment,
         owner: userId,
