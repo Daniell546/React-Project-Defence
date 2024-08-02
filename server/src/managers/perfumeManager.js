@@ -11,7 +11,7 @@ exports.edit = async (id, perfume, owner) => {
     if(oldPerfume.owner != owner._id) {
         throw new Error("Invalid user, trying to edit perfume article")
     }
-    return await Perfume.findByIdAndUpdate(id, perfume);
+    return await Perfume.findByIdAndUpdate(id, perfume, {runValidators: true});
 };
 
 exports.delete = (id) => Perfume.findByIdAndDelete(id);

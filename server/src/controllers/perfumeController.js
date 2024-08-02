@@ -23,10 +23,10 @@ router.put("/:perfumeId/edit", auth(), async (req, res) => {
     const owner = body.owner;
     try {
         const perfume = await perfumeManager.edit(id, newData, owner);
-        res.send(perfume);
+        res.status(200).send(perfume);
         return perfume;
     } catch (error) {
-        return res.send(getErrorMessage(error));
+        return res.status(400).send(getErrorMessage(error));
     }
 });
 
