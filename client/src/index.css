@@ -207,10 +207,29 @@ article .price span {
     word-wrap: break-word;  /* Break long words */
     word-break: break-word;  /* Break long words */
     white-space: pre-wrap;
+    max-width: 50ch;
 }
 
 .section-details .comments .comments-list .comment .media {
     max-width: 50px;
+}
+
+.section-details .comments .comments-list .comment .comments-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.section-details .comments .comments-list .comment .comments-btn button {
+    box-shadow: 0 0 0.1em 0 rgb(0, 0, 0, 0.1);
+    border-radius: 0.2em;
+    outline: none;
+    padding: 0.5em;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
 }
 
 

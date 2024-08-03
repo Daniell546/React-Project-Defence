@@ -83,9 +83,8 @@ export default function PerfumeComments() {
                             <>
                                 <div className="comments-btn">
                                     <button>Delete</button>
-                                    <button>
-                                        <Link to={`/perfume/edit`}>Edit</Link>
-                                    </button>
+
+                                    <Link to={`/perfume/edit`}><button>Edit</button></Link>
                                 </div>
                             </>
                         ) : (

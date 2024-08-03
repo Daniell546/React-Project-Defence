@@ -7,6 +7,7 @@ import authAPI from "../../api/auth.api";
 
 import PerfumeComments from "./perfume-comments/PerfumeComments";
 import perfumesAPI from "../../api/perfumes-api";
+import { toast } from "react-toastify";
 
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
@@ -17,11 +18,6 @@ export default function PerfumeDetails() {
 
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const userData = authAPI.fetchUser();
-    //     setUser(userData);
-    // }, []);
 
     useEffect(() => {
         if (user && perfume) {
