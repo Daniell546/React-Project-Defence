@@ -16,8 +16,8 @@ export default function Header() {
     const logoutHandler = (e) => {
         e.preventDefault();
         try {
-            localStorage.removeItem('user');
             changeAuthState({})
+            localStorage.removeItem('user');
             toast.success('Logout successful')
             
         } catch (error) {

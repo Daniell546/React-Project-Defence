@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createComment, getAllCommentsByPerfume } from "../api/comments-api";
+import { createComment, editComment, fetchOneComment, getAllCommentsByPerfume } from "../api/comments-api";
 
 export function useGetCommentsByPerfume(perfumeId) {
     const [comments, setComments] = useState([]);
@@ -22,4 +22,24 @@ export function useCreateComment() {
         await createComment(perfumeId, commentData, userId);
     };
     return commentCreateHandler;
+}
+
+export function useEditComment() {
+    const editCommentHandler = async (commentId, newCommentData) => {
+        await editComment(commentId, newCommentData)
+    }
+    return editCommentHandler;
+}
+
+export function useGetOneComment(commentId) {
+    const [comment, setComment] = useState({});
+
+    useEffect(() => {
+        (async () => {
+            const result = await fetchOneComment(commentId);
+            setComment(result);
+        })();
+    }, [commentId]);
+
+    return [comment];
 }

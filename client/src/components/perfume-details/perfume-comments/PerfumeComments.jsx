@@ -1,45 +1,80 @@
 import { useForm } from "../../../hooks/useForm";
-import {
-    useCreateComment,
-    useGetCommentsByPerfume,
-} from "../../../hooks/useComments";
+import { useCreateComment, useGetCommentsByPerfume } from "../../../hooks/useComments";
 import { toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { getUserById } from "../../../api/auth.api";
+import { deleteComment } from "../../../api/comments-api"
 
-export default function PerfumeComments() {
+export default function PerfumeComments({ userProps: user }) {
     const { perfumeId } = useParams();
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { isAuthenticated, changeAuthState, user: authUser } = useContext(AuthContext);
     const commentCreateHandler = useCreateComment();
-    const [comments, triggerRefreshComments] =
-        useGetCommentsByPerfume(perfumeId);
+    const [comments, triggerRefreshComments] = useGetCommentsByPerfume(perfumeId);
     const [isOwner, setIsOwner] = useState(false);
-
-    useEffect(() => {
-        if (user) {
-            console.log(user.comments);
-            // setIsOwner(user._id === perfume.owner);
-        }
-    }, [user]);
 
     const addCommentHandler = async (values) => {
         try {
             const userId = user._id;
-
             await commentCreateHandler(perfumeId, values, userId);
+
+            // Fetch updated user info from the server
+            console.log('Fetching updated user info...');
+            const updatedUser = await getUserById(userId);
+            console.log('Updated User:', updatedUser);
+
+            // Preserve the token
+            const updatedUserWithToken = { ...updatedUser, token: authUser.token };
+            console.log('Updated User with Token:', updatedUserWithToken);
+
+            // Update local storage
+            localStorage.setItem("user", JSON.stringify(updatedUserWithToken));
+
+            // Update context state
+            changeAuthState(updatedUserWithToken);
 
             // Trigger a re-fetch of comments
             triggerRefreshComments();
 
             toast.success("Comment created");
         } catch (error) {
-            console.log("catchedError");
+            console.error('Error in addCommentHandler:', error);
             if (error.message) {
-                return toast.error(error.message);
+                toast.error(error.message);
             } else {
                 toast.error(error);
             }
+        }
+    };
+
+    const deleteCommentHandler = async (id) => {
+        try {
+            const userId = user._id;
+            await deleteComment(id, perfumeId, authUser);
+
+            // Fetch updated user info from the server
+            console.log('Fetching updated user info after delete...');
+            const updatedUser = await getUserById(userId);
+            console.log('Updated User after delete:', updatedUser);
+
+            // Preserve the token
+            const updatedUserWithToken = { ...updatedUser, token: authUser.token };
+            console.log('Updated User with Token after delete:', updatedUserWithToken);
+
+            // Update local storage
+            localStorage.setItem("user", JSON.stringify(updatedUserWithToken));
+
+            // Update context state
+            changeAuthState(updatedUserWithToken);
+
+            // Trigger a re-fetch of comments
+            triggerRefreshComments();
+
+            toast.success("Comment deleted");
+        } catch (error) {
+            console.error('Error in deleteCommentHandler:', error);
+            toast.error(error);
         }
     };
 
@@ -74,19 +109,14 @@ export default function PerfumeComments() {
                             />
                         </div>
                         <div className="content">
-                            <span className="title">
-                                @{comment.owner.email}
-                            </span>
+                            <span className="title">@{comment.owner.email}</span>
                             <span className="text">{comment.comment}</span>
                         </div>
-                        {comment.owner._id == user._id ? (
-                            <>
-                                <div className="comments-btn">
-                                    <button>Delete</button>
-
-                                    <Link to={`/perfume/edit`}><button>Edit</button></Link>
-                                </div>
-                            </>
+                        {comment.owner._id === user._id ? (
+                            <div className="comments-btn">
+                                <button onClick={() => deleteCommentHandler(comment._id)}>Delete</button>
+                                <Link to={`/perfume/comment/${comment._id}/edit`}><button>Edit</button></Link>
+                            </div>
                         ) : (
                             ""
                         )}

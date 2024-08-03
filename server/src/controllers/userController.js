@@ -9,6 +9,14 @@ const perfumeManager = require("../managers/perfumeManager");
 const { auth } = require("../utils");
 const { getErrorMessage } = require("../utils/getErrorMessage");
 const { isGuest } = require("../utils");
+
+router.get('/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const user = await userManager.findUserById(userId);
+    console.log(user);    
+    res.send(user)
+})
+
 //  Login requests
 
 router.post("/login", (req, res) => {

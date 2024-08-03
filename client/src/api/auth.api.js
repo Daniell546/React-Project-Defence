@@ -1,5 +1,5 @@
 import requester, * as request from "./requester";
-
+import axios from 'axios';
 const BASE_URL = "http://localhost:3030/users";
 
 export const login = async (email, password) => {
@@ -22,10 +22,20 @@ export const fetchUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
 
+export const getUserById = async (userId) => {
+    try {
+        const response = await axios.get(`http://localhost:3000/api/user/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user by ID:', error);
+        throw error;
+    }
+};
+
 const authAPI = {
     fetchUser,
     register,
-    login
+    login,
 };
 
 export default authAPI;

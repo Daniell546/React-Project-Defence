@@ -54,6 +54,8 @@ a {
     text-decoration: none;
     color: #000;
 }
+
+
 /* Home page */
 
 .section-search,
@@ -146,7 +148,7 @@ article .price span {
     box-shadow: 0 0 0.2em 0 rgb(0, 0, 0, 0.1);
     transition: 0.2s;
 }
-
+.section-comment-edit .comments,
 .section-details .comments {
     margin: 0 auto 4em;
     border: 1px solid #000;
@@ -156,9 +158,12 @@ article .price span {
     padding: 2em 3em;
     box-shadow: 0 0 0.2em 0 rgb(0, 0, 0, 0.1);
 }
+
 .section-details .comments h3 {
     text-align: center;
 }
+
+.section-comment-edit .comments form,
 .section-details .comments form {
     display: flex;
     justify-content: center;
@@ -167,6 +172,7 @@ article .price span {
     border-bottom: 1px solid #000;
 }
 
+.section-comment-edit .comments form button, 
 .section-details .comments form button {
     box-shadow: 0 0 0.1em 0 rgb(0, 0, 0, 0.1);
     border-radius: 0.2em;
@@ -187,17 +193,19 @@ article .price span {
 }
 
 .section-details .comments .comments-list .comment {
+    position: relative; /* Ensure the comment container is positioned relative */
     display: flex;
     align-items: start;
     padding: 0.5em;
     box-shadow: 0 0 0.4em 0 rgb(0, 0, 0, 0.3);
     background-color: #fff;
 }
+
 .section-details .comments .comments-list .comment .content {
     display: flex;
     flex-direction: column;
-    
 }
+
 .section-details .comments .comments-list .comment .title {
     font-size: 0.8em;
 }
@@ -207,7 +215,7 @@ article .price span {
     word-wrap: break-word;  /* Break long words */
     word-break: break-word;  /* Break long words */
     white-space: pre-wrap;
-    max-width: 50ch;
+    max-width: 45ch;
 }
 
 .section-details .comments .comments-list .comment .media {
@@ -215,10 +223,13 @@ article .price span {
 }
 
 .section-details .comments .comments-list .comment .comments-btn {
+    position: absolute; /* Position the buttons absolutely */
+    top: 0; /* Align to the top */
+    right: 0; /* Align to the right */
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 0.5em;
+    padding: 0.5em;
 }
 
 .section-details .comments .comments-list .comment .comments-btn button {
@@ -230,7 +241,8 @@ article .price span {
     background-color: #000;
     border: none;
     cursor: pointer;
-}
+} 
+
 
 
 .section-details .wrapper:hover {
@@ -478,4 +490,8 @@ User profile page
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.section-comment-edit {
+    margin: 2em auto
 }

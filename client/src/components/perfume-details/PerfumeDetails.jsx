@@ -12,12 +12,20 @@ import { toast } from "react-toastify";
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
 
-    const { isAuthenticated, user } = useContext(AuthContext);
-    // const [user, setUser] = useState({});
+    const { isAuthenticated } = useContext(AuthContext);
+    const [user, setUser] = useState({});
     const [isOwner, setIsOwner] = useState(false);
 
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            const userData = JSON.parse(localStorage.getItem('user'));
+            setUser(userData);
+        }
+        
+    }, []);
 
     useEffect(() => {
         if (user && perfume) {

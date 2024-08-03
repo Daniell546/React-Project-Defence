@@ -4,7 +4,7 @@ const jwt = require("../lib/jwt");
 
 const SECRET = "ThatIsMyBestSecret";
 
-
+exports.findUserById = (userId) => User.findById(userId);
 
 exports.editProfile = (id, newData) => User.findByIdAndUpdate(id, newData)
 
