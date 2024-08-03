@@ -4,20 +4,29 @@ import {
     useGetCommentsByPerfume,
 } from "../../../hooks/useComments";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 
 export default function PerfumeComments() {
     const { perfumeId } = useParams();
     const { isAuthenticated, user } = useContext(AuthContext);
     const commentCreateHandler = useCreateComment();
-    const [comments, triggerRefreshComments] = useGetCommentsByPerfume(perfumeId);
+    const [comments, triggerRefreshComments] =
+        useGetCommentsByPerfume(perfumeId);
+    const [isOwner, setIsOwner] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            console.log(user.comments);
+            // setIsOwner(user._id === perfume.owner);
+        }
+    }, [user]);
 
     const addCommentHandler = async (values) => {
         try {
             const userId = user._id;
-            
+
             await commentCreateHandler(perfumeId, values, userId);
 
             // Trigger a re-fetch of comments
@@ -70,6 +79,18 @@ export default function PerfumeComments() {
                             </span>
                             <span className="text">{comment.comment}</span>
                         </div>
+                        {comment.owner._id == user._id ? (
+                            <>
+                                <div className="comments-btn">
+                                    <button>Delete</button>
+                                    <button>
+                                        <Link to={`/perfume/edit`}>Edit</Link>
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 ))}
             </div>

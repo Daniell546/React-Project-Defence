@@ -11,17 +11,17 @@ import perfumesAPI from "../../api/perfumes-api";
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
 
-    const { isAuthenticated } = useContext(AuthContext);
-    const [user, setUser] = useState({});
+    const { isAuthenticated, user } = useContext(AuthContext);
+    // const [user, setUser] = useState({});
     const [isOwner, setIsOwner] = useState(false);
 
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const userData = authAPI.fetchUser();
-        setUser(userData);
-    }, []);
+    // useEffect(() => {
+    //     const userData = authAPI.fetchUser();
+    //     setUser(userData);
+    // }, []);
 
     useEffect(() => {
         if (user && perfume) {
@@ -85,7 +85,7 @@ export default function PerfumeDetails() {
                 </div>
             </div>
 
-            <PerfumeComments/>
+            <PerfumeComments userProps={user} />
         </section>
     );
 }
