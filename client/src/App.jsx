@@ -14,6 +14,7 @@ import UserProfile from "./components/user-profile/UserProfile";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditPerfume from "./components/edit-perfume/EditPerfume";
+import Footer from "./components/footer/Footer";
 
 function App() {
     const [authState, setAuthState] = useState({})
@@ -50,6 +51,8 @@ function App() {
                         <Route path="/perfume/:perfumeId/edit" element={<EditPerfume />} />
                     </Routes>
                 </main>
+
+                <Footer />
             </div>
         </AuthContext.Provider>
     );

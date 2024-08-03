@@ -54,52 +54,6 @@ a {
     text-decoration: none;
     color: #000;
 }
-
-/* Header */
-
-.section-header .wrapper {
-    margin: 0 auto;
-    max-width: 1600px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    background-color: #fff;
-}
-
-.main-nav ul {
-    display: flex;
-    gap: 0 1em;
-}
-
-.main-nav li {
-    display: block;
-    list-style: none;
-}
-
-.site-title>* {
-    cursor: pointer;
-    margin-left: 4em;
-}
-
-.main-nav a,
-.site-title a {
-    border-bottom: 1px solid #000;
-    display: block;
-    padding: 0.5em 1em;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.main-nav a:hover,
-.site-title a:hover {
-    opacity: 0.9;
-    background-color: #ddd;
-    border-radius: 0.3em;
-}
-
 /* Home page */
 
 .section-search,
