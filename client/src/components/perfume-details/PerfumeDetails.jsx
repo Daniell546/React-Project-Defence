@@ -22,7 +22,8 @@ export default function PerfumeDetails() {
 
     const [perfume] = useGetOnePerfume(perfumeId);
     const commentCreateHandler = useCreateComment();
-    const [comments, setComments] = useGetCommentsByPerfume(perfumeId);
+    const [comments, triggerRefreshComments] =
+        useGetCommentsByPerfume(perfumeId);
 
     useEffect(() => {
         const userData = authAPI.fetchUser();
@@ -51,13 +52,12 @@ export default function PerfumeDetails() {
             if (!isAuthenticated) {
                 userId = {};
             }
-            const newComment = await commentCreateHandler(
-                perfumeId,
-                values,
-                userId
-            );
+            await commentCreateHandler(perfumeId, values, userId);
 
-            toast.success("comment created");
+            // Trigger a re-fetch of comments
+            triggerRefreshComments();
+            
+            toast.success("Comment created");
         } catch (error) {
             console.log("catchedError");
             if (error.message) {

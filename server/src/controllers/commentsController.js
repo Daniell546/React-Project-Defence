@@ -5,7 +5,7 @@ const commentsManager = require("../managers/commentsManager");
 const { getErrorMessage } = require("../utils/getErrorMessage");
 
 router.get('/all/:perfumeId', async(req, res) => {
-    const comments = await commentsManager.getCommentByPerfume(req.params.perfumeId)
+    const comments =  (await commentsManager.getCommentByPerfume(req.params.perfumeId)).reverse()
     res.send(comments);
 })
 
