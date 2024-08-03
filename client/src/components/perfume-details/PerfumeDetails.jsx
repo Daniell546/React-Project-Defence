@@ -47,10 +47,24 @@ export default function PerfumeDetails() {
 
     const addCommentHandler = async (values) => {
         try {
-            const newComment = await commentCreateHandler(perfumeId, values);
-            toast.success("comments created");
+            const userId = user._id;
+            if (!isAuthenticated) {
+                userId = {};
+            }
+            const newComment = await commentCreateHandler(
+                perfumeId,
+                values,
+                userId
+            );
+
+            toast.success("comment created");
         } catch (error) {
-            toast.error(error);
+            console.log("catchedError");
+            if (error.message) {
+                return toast.error(error.message);
+            } else {
+                toast.error(error);
+            }
         }
     };
 
@@ -105,17 +119,20 @@ export default function PerfumeDetails() {
             </div>
 
             <div className="comments">
-                <form onSubmit={submitHandler}>
-                    <span>{comments.length} comments</span>
-                    <input
-                        type="text"
-                        name="text"
-                        value={values.text}
-                        onChange={changeHandler}
-                        placeholder="Add comment..."
-                    />
-                    <button>Add</button>
-                </form>
+                <h3>Comments</h3>
+                <span>{comments.length} comments</span>
+                {isAuthenticated && (
+                    <form onSubmit={submitHandler}>
+                        <input
+                            type="text"
+                            name="text"
+                            value={values.text}
+                            onChange={changeHandler}
+                            placeholder="Add comment..."
+                        />
+                        <button>Add</button>
+                    </form>
+                )}
                 <div className="comments-list">
                     {comments.map((comment) => (
                         <div key={comment._id} className="comment">
@@ -126,7 +143,9 @@ export default function PerfumeDetails() {
                                 />
                             </div>
                             <div className="content">
-                                <span className="title">@{comment.owner.email}</span>
+                                <span className="title">
+                                    @{comment.owner.email}
+                                </span>
                                 <span className="text">{comment.comment}</span>
                             </div>
                         </div>

@@ -202,7 +202,9 @@ article .price span {
     padding: 2em 3em;
     box-shadow: 0 0 0.2em 0 rgb(0, 0, 0, 0.1);
 }
-
+.section-details .comments h3 {
+    text-align: center;
+}
 .section-details .comments form {
     display: flex;
     justify-content: center;

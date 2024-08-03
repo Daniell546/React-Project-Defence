@@ -16,8 +16,8 @@ export function useGetCommentsByPerfume(perfumeId) {
 
 
 export function useCreateComment() {
-    const commentCreateHandler = async (perfumeId, commentData) => {
-        await createComment(perfumeId, commentData)
+    const commentCreateHandler = async (perfumeId, commentData, userId) => {
+        await createComment(perfumeId, commentData, userId)
     }
     return commentCreateHandler;
 }
