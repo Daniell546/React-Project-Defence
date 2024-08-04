@@ -60,10 +60,6 @@ html, body {
     margin: 0;
 }
 
-.box {
-    /* display: flex;
-    flex-direction: column; */
-}
 
 #main-content {
     min-height: 84vh;
