@@ -60,6 +60,10 @@ html, body {
     margin: 0;
 }
 
+.box {
+    /* display: flex;
+    flex-direction: column; */
+}
 
 #main-content {
     min-height: 84vh;
@@ -69,7 +73,7 @@ html, body {
 
 /* Home page */
 
-.section- .wrapper,
+.section-search,
 .section-catalog .wrapper {
     margin: auto;
     padding: 2em;
@@ -91,7 +95,6 @@ html, body {
 
 .emptyContainer {
     font-size: 3em;
-    text-align: center;
 }
 
 article {
@@ -101,7 +104,6 @@ article {
     border: 1px solid #000;
     overflow: hidden;
     border-radius: 0.3em;
-    margin: 1em 0;
     /* height: 100%; */
 }
 

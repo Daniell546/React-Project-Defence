@@ -34,10 +34,5 @@ export const fetchOneComment = async (commentId) => {
 };
 
 export const deleteComment = async (commentId, perfumeId, user) => {
-
-    const deletedComment = await requester.del(
-        `${BASE_URL}/comments/delete/${commentId}`,
-        { perfumeId, user }
-    );
-    return deletedComment;
+    await requester.del(`${BASE_URL}/comments/delete/${commentId}`, {perfumeId, user})
 };
