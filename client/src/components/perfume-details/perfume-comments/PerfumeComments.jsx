@@ -36,7 +36,9 @@ export default function PerfumeComments({ userProps: user }) {
 
             // Trigger a re-fetch of comments
             triggerRefreshComments();
-
+            setValues({
+                text: ''
+            })
             toast.success("Comment created");
         } catch (error) {
             console.error('Error in addCommentHandler:', error);
@@ -54,13 +56,10 @@ export default function PerfumeComments({ userProps: user }) {
             await deleteComment(id, perfumeId, authUser);
 
             // Fetch updated user info from the server
-            console.log('Fetching updated user info after delete...');
             const updatedUser = await getUserById(userId);
-            console.log('Updated User after delete:', updatedUser);
 
             // Preserve the token
             const updatedUserWithToken = { ...updatedUser, token: authUser.token };
-            console.log('Updated User with Token after delete:', updatedUserWithToken);
 
             // Update local storage
             localStorage.setItem("user", JSON.stringify(updatedUserWithToken));
@@ -73,12 +72,11 @@ export default function PerfumeComments({ userProps: user }) {
 
             toast.success("Comment deleted");
         } catch (error) {
-            console.error('Error in deleteCommentHandler:', error);
             toast.error(error);
         }
     };
 
-    const { values, changeHandler, submitHandler } = useForm(
+    const { values, changeHandler, submitHandler, setValues } = useForm(
         { text: "" },
         addCommentHandler
     );

@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-const rateLimit = require("express-rate-limit");
 
 const routes = require("./routes");
 const expressConfig = require("./config/expressConfig");
@@ -12,7 +11,6 @@ const config = require("./config/config");
 
 // Configure Express
 expressConfig(app);
-
 // Configure CORS
 app.use(
     cors({
@@ -38,6 +36,7 @@ dbConfig()
 
 // Routes
 app.use("/api", routes);
+
 
 // Start the server
 app.listen(3000, () => console.log(`Listening on port ${config.port}!`));

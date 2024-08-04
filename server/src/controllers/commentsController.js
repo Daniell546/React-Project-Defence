@@ -63,9 +63,10 @@ router.delete("/delete/:commentId", async (req, res) => {
     const userId = req.body.user._id;
 
     try {
-        await commentsManager.deleteComment(commentId);
+        const comment = await commentsManager.deleteComment(commentId);
         await commentsManager.updatePerfumeDelete(perfumeId, commentId);
         await commentsManager.updateUserDelete(userId, commentId);
+        res.send(comment)
     } catch (error) {
         return res.status(400).send(getErrorMessage(error));
     }

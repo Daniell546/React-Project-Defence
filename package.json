@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
   },
   "author": "",
   "license": "ISC"
