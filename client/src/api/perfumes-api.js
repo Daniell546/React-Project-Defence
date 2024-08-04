@@ -23,11 +23,10 @@ export const editPerfume = async (perfumeId, newPerfumeData) => {
     let user = localStorage.getItem("user");
     if (user) {
         const owner = JSON.parse(user);
-        await request.put(
-            `${BASE_URL}/perfumes/${perfumeId}/edit`,
-            {newPerfumeData,
-            owner}
-        );
+        await request.put(`${BASE_URL}/perfumes/${perfumeId}/edit`, {
+            newPerfumeData,
+            owner,
+        });
     }
 };
 
@@ -44,6 +43,9 @@ export const searchByCriteria = async (text, criteria) => {
     return Object.values(perfumes);
 };
 
+export const perfumesByCreator = async (userId) =>
+    request.get(`${BASE_URL}/user/profile/${userId}`);
+
 const perfumesAPI = {
     getAll,
     getOne,
@@ -51,6 +53,7 @@ const perfumesAPI = {
     searchByCriteria,
     deletePerfume,
     editPerfume,
+    perfumesByCreator
 };
 
 export default perfumesAPI;

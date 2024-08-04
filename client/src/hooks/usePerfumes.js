@@ -38,8 +38,8 @@ export function useCreatePerfume() {
 
 export function useEditPerfume() {
     const editPerfumeHandler = async (perfumeId, newPerfumeData) => {
-        await perfumesAPI.editPerfume(perfumeId, newPerfumeData)
-    }
+        await perfumesAPI.editPerfume(perfumeId, newPerfumeData);
+    };
 
     return editPerfumeHandler;
 }
@@ -55,4 +55,16 @@ export function useSearchPerfumes(text, criteria) {
     }, [text, criteria]);
 
     return [perfumes, setPerfumes];
+}
+
+export function useGetPerfumesByUser(userId) {
+    const [perfumes, setPerfumes] = useState([]);
+    useEffect(() => {
+        (async () => {
+            const result = await perfumesAPI.perfumesByCreator(userId);
+            setPerfumes(result);
+        })();
+    }, [userId]);
+
+    return [perfumes]
 }

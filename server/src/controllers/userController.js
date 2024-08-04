@@ -13,7 +13,6 @@ const { isGuest } = require("../utils");
 router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
     const user = await userManager.findUserById(userId);
-    console.log(user);    
     res.send(user)
 })
 
@@ -116,6 +115,21 @@ router.post("/logout", auth(), (req, res) => {
         .catch((err) => {
             res.status(400).send(getErrorMessage(err));
         });
+});
+
+router.get("/profile/:owner", auth(), async (req, res) => {
+    const owner = req.params.owner;
+    console.log(owner);
+    
+    try {
+        const perfumes = await perfumeManager.getByUser(owner);
+        console.log(perfumes);
+        
+        res.send(perfumes);
+        return perfumes;
+    } catch (error) {
+        res.send(getErrorMessage(error));
+    }
 });
 
 router.post("/profile", auth(), async (req, res) => {

@@ -49,7 +49,7 @@ export default function Header() {
                                     <Link to="/create">Create</Link>
                                 </li>
                                 <li>
-                                    <Link to="/user-profile">{user.email}'s profile</Link>
+                                    <Link to={`/user-profile/${user._id}`}>{user.email}'s profile</Link>
                                 </li>
                                 <li>
                                     <Link to="#" onClick={logoutHandler}>Logout</Link>
