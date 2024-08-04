@@ -13,7 +13,6 @@ const { isGuest } = require("../utils");
 router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
     const user = await userManager.findUserById(userId);
-    console.log(user);    
     res.send(user)
 })
 

@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditPerfume from "./components/edit-perfume/EditPerfume";
 import Footer from "./components/footer/Footer";
 import EditComments from "./components/perfume-details/perfume-comments/edit-comments/EditComments";
+import Cart from "./components/cart/Cart";
 
 function App() {
     const [authState, setAuthState] = useState({})
@@ -49,6 +50,7 @@ function App() {
                         <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
                         <Route path="/perfume/:perfumeId/edit" element={<EditPerfume />} />
                         <Route path="/perfume/comment/:commentId/edit" element={<EditComments />} />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
                 </main>
                 <Footer />

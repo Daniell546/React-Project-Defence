@@ -45,3 +45,27 @@ exports.search = async (text, criteria) => {
         return all;
     }
 };
+
+exports.updateUsersDeletePerfumeComments = async (perfumeId) => {
+    try {
+        // Find all comments related to the perfume
+        const comments = await Comment.find({ perfume: perfumeId });
+        console.log(comments);
+        
+        // Loop through each comment and update the user document
+        for (const comment of comments) {
+            await User.findByIdAndUpdate(
+                comment.owner,
+                { $pull: { comments: comment._id } }
+            );
+        }
+    } catch (err) {
+        console.error('Error updating users when deleting perfume comments:', err);
+    }
+};
+
+
+exports.deleteCommentsByPerfume = (perfumeId) => {
+    return Comment.deleteMany({ perfume: perfumeId });
+};
+

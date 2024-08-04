@@ -44,6 +44,10 @@ export default function PerfumeDetails() {
         }
     };
 
+    const addToCartHandler = () => {
+        navigate('/cart')
+    }
+
     return (
         <section className="section-details">
             <div className="wrapper">
@@ -83,7 +87,7 @@ export default function PerfumeDetails() {
 
                     {isAuthenticated && (
                         <div className="addCart">
-                            <button>Add to cart</button>
+                            <button onClick={addToCartHandler}>Add to cart</button>
                         </div>
                     )}
                 </div>

@@ -20,13 +20,10 @@ export default function PerfumeComments({ userProps: user }) {
             await commentCreateHandler(perfumeId, values, userId);
 
             // Fetch updated user info from the server
-            console.log('Fetching updated user info...');
             const updatedUser = await getUserById(userId);
-            console.log('Updated User:', updatedUser);
 
             // Preserve the token
             const updatedUserWithToken = { ...updatedUser, token: authUser.token };
-            console.log('Updated User with Token:', updatedUserWithToken);
 
             // Update local storage
             localStorage.setItem("user", JSON.stringify(updatedUserWithToken));

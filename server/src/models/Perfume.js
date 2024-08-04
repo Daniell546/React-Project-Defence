@@ -33,6 +33,8 @@ const perfumeModel = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
+
+
 const Perfume = mongoose.model("Perfume", perfumeModel);
 
 module.exports = Perfume;
