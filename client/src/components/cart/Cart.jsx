@@ -1,92 +1,63 @@
-import './cart.css'
+import React from 'react';
+import { useCart } from '../../contexts/CartContext';
+import { Link } from 'react-router-dom';
+import './cart.css';
 
 export default function Cart() {
-    return (
-        <div className="section-cart">
-            <h1>Cart</h1>
-            <div className="container">
-                <ul>
-                    <li>
-                        <div>
-                            <img />
-                        </div>
-                        <div>
-                            <a>
+  const { cart, changeQuantity, removeFromCart, clearCart } = useCart();
 
-                            </a>
-                        </div>
-                        <div>
-                            <input
+  const isEmpty = cart.items.length === 0;
 
-                            />
-                        </div>
-                        <div>
-
-                        </div>
-
-                        <div>
-                            <button className="remove-button" >
-                                Remove
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <div className="checkout">
-                    <div>
-                        <div className="total-price"></div>
-                    </div>
-
-                    <a >Proceed to Checkout</a>
-                    <button>Proceed to Checkout</button>
+  return (
+    <div className="section-cart">
+      <h1>Cart</h1>
+      {isEmpty ? (
+        <div>
+          <div className="empty">Sorry, your Cart is empty😔...</div>
+          < Link className="addItems" to="/">Add items</ Link>
+        </div>
+      ) : (
+        <div className="container">
+          <ul>
+            {cart.items.map((cartItem) => (
+              <li key={cartItem.perfume._id}>
+                <div>
+                  <img src={cartItem.perfume.imageUrl} alt={cartItem.perfume.brand} />
                 </div>
+                <div>
+                  < Link to={`/home/${cartItem.perfume._id}`}>
+                    {cartItem.perfume.brand}
+                  </ Link>
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder='How many...'
+                    value={cartItem.quantity}
+                    onChange={(e) => changeQuantity(cartItem.perfume._id, parseInt(e.target.value))}
+                  />
+                </div>
+                <div>
+                  {cartItem.price.toFixed(2)}
+                </div>
+                <div>
+                  <button className="remove-button" onClick={() => removeFromCart(cartItem.perfume._id)}>Remove</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="checkout">
+            <div>
+              <div className="total-price">{cart.totalPrice.toFixed(2)}</div>
             </div>
-        </div >
-    );
-}
-
-
-
-{/* <h1>Cart</h1>
-<div *ngIf="isEmpty">
-  <div className="empty">Sorry, your Cart is empty😔...</div>
-  <a className="addItems" routerLink="/home">Add items</a>
-</div>
-
-<div *ngIf="cart && cart.items.length" className="container">
-  <ul>
-    <li *ngFor="let cartItem of cart.items">
-      <div>
-        <img [src]="cartItem.perfume.imageUrl" />
-      </div>
-      <div>
-        <a routerLink="/home/{{ cartItem.perfume._id }}">
-          {{ cartItem.perfume.brand }}
-        </a>
-      </div>
-      <div>
-        <input
-          #quantitySelect
-          [value]="cartItem.quantity"
-          (change)="changeQuantity(cartItem, quantitySelect.value)"
-        />
-      </div>
-      <div>
-        {{ cartItem.price | currency : "BGN" }}
-      </div>
-
-      <div>
-        <button className="remove-button" (click)="removeFromCart(cartItem)">
-          Remove
-        </button>
-      </div>
-    </li>
-  </ul>
-  <div className="checkout">
-    <div>
-      <div className="total-price">{{ cart.totalPrice | currency : "BGN" }}</div>
+            < Link to="/checkout">Proceed to Checkout</ Link>
+            <div className='btns'>
+              <button onClick={clearCart}>Clear</button>
+              <button onClick={clearCart}>Pay</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-
-    <!-- <a routerLink="/checkout">Proceed to Checkout</a> -->
-    <button (click)="checkout()">Proceed to Checkout</button>
-  </div>
-</div> */}
+  );
+}

@@ -7,17 +7,20 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { toast } from 'react-toastify';
+import { useCart } from "../../contexts/CartContext";
 
 export default function Header() {
 
     const navigate = useNavigate();
     const { isAuthenticated, changeAuthState, user } = useContext(AuthContext);
+    const { clearCart } = useCart();
 
     const logoutHandler = (e) => {
         e.preventDefault();
         try {
             changeAuthState({})
-            localStorage.removeItem('user');
+            clearCart();
+            localStorage.clear();
             toast.success('Logout successful')
             
         } catch (error) {
