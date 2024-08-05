@@ -1,12 +1,18 @@
 import React from 'react';
 import { useCart } from '../../contexts/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './cart.css';
+import { toast } from 'react-toastify';
 
 export default function Cart() {
   const { cart, changeQuantity, removeFromCart, clearCart } = useCart();
-
+  const navigate = useNavigate();
   const isEmpty = cart.items.length === 0;
+
+  const payHandler = () => {
+    toast.success('Payment went successful')
+    navigate('/')
+  }
 
   return (
     <div className="section-cart">
@@ -53,7 +59,7 @@ export default function Cart() {
             < Link to="/checkout">Proceed to Checkout</ Link>
             <div className='btns'>
               <button onClick={clearCart}>Clear</button>
-              <button onClick={clearCart}>Pay</button>
+              <button onClick={payHandler}>Pay</button>
             </div>
           </div>
         </div>

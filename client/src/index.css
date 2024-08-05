@@ -303,6 +303,7 @@ article .price span {
     text-align: center;
     align-items: center;
     min-width: 36ch;
+    padding-bottom: 1em;
 }
 
 .section-details .wrapper .buttons {

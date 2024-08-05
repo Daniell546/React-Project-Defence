@@ -82,7 +82,7 @@ export default function PerfumeDetails() {
                         </>
                     )}
 
-                    {isAuthenticated && (
+                    {isAuthenticated && !isOwner &&(
                         <div className="addCart">
                             <button onClick={addToCartHandler}>Add to cart</button>
                         </div>
