@@ -30,14 +30,16 @@ router.put("/:perfumeId/edit", auth(), async (req, res) => {
     }
 });
 
-
 router.delete("/:perfumeId/delete", auth(), async (req, res) => {
     const id = req.params.perfumeId;
     try {
         const deletedPerfume = await perfumeManager.delete(id);
+
+        await perfumeManager.updateUsersDeletePerfumeComments(id);
         
         await perfumeManager.deleteCommentsByPerfume(id);
-        await perfumeManager.updateUsersDeletePerfumeComments(id)
+
+
         res.send(deletedPerfume);
         return deletedPerfume;
     } catch (error) {

@@ -64,7 +64,6 @@ export function useGetPerfumesByUser(id) {
     useEffect(() => {
         (async () => {
             const result = await getPerfumesByUser(id);
-            console.log(result);
             setPerfumes(result)
         })()
     }, [])

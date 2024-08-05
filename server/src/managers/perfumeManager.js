@@ -1,4 +1,6 @@
+const Comment = require("../models/Comment");
 const Perfume = require("../models/Perfume");
+const User = require("../models/User");
 
 exports.getPerfumes = () => Perfume.find();
 
@@ -49,11 +51,11 @@ exports.search = async (text, criteria) => {
 exports.updateUsersDeletePerfumeComments = async (perfumeId) => {
     try {
         // Find all comments related to the perfume
-        const comments = await Comment.find({ perfume: perfumeId });
-        console.log(comments);
+        const comments = await Comment.find({ perfume: perfumeId }).lean();
         
         // Loop through each comment and update the user document
         for (const comment of comments) {
+            console.log(comment.owner);
             await User.findByIdAndUpdate(
                 comment.owner,
                 { $pull: { comments: comment._id } }
