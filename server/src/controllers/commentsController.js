@@ -25,7 +25,7 @@ router.post("/create", auth(), async (req, res) => {
     const perfumeId = req.body.perfumeId;
     const comment = req.body.commentData.text;
     const userId = req.body.userId;
-
+    
     const commentData = {
         comment,
         owner: userId,
@@ -33,15 +33,17 @@ router.post("/create", auth(), async (req, res) => {
     };
     try {
         const newComment = await commentsManager.create(commentData);
+        
         await commentsManager.updateUser(userId, newComment._id);
         await commentsManager.updatePerfume(perfumeId, newComment._id);
         res.send(newComment);
+        return newComment;
     } catch (error) {
         return res.status(400).send(getErrorMessage(error));
     }
 });
 
-router.put("/edit/:commentId", async (req, res) => {
+router.put("/edit/:commentId", auth(), async (req, res) => {
     const commentId = req.params.commentId;
     const newData = req.body.newComment;
     const owner = req.body.owner;
@@ -57,7 +59,7 @@ router.put("/edit/:commentId", async (req, res) => {
     }
 });
 
-router.delete("/delete/:commentId", async (req, res) => {
+router.delete("/delete/:commentId", auth(), async (req, res) => {
     const commentId = req.params.commentId;
     const perfumeId = req.body.perfumeId;
     const userId = req.body.user._id;

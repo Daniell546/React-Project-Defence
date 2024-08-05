@@ -30,19 +30,8 @@ router.put("/:perfumeId/edit", auth(), async (req, res) => {
     }
 });
 
-router.put("/:perfumeId/edit/amount", async (req, res) => {
-    const id = req.params.perfumeId;
-    const amount = req.body.amount;
-    try {
-        const perfume = await perfumeManager.edit(id, req.body);
-        res.send(perfume);
-        return perfume;
-    } catch (error) {
-        return res.send(getErrorMessage(error));
-    }
-});
 
-router.delete("/:perfumeId/delete", async (req, res) => {
+router.delete("/:perfumeId/delete", auth(), async (req, res) => {
     const id = req.params.perfumeId;
     try {
         const deletedPerfume = await perfumeManager.delete(id);

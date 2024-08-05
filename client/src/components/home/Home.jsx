@@ -9,7 +9,7 @@ export default function Home() {
         <section className="section-catalog">
             <div className="wrapper">
                 <header>
-                    <h3>Welocome to our beautiful online store</h3>
+                    <h3>Welcome to our beautiful online store</h3>
                 </header>
 
                 <div className="flex-columns c2">

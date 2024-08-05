@@ -34,12 +34,8 @@ export default function PerfumeComments({ userProps: user }) {
 
             // Update context state
             changeAuthState(updatedUserWithToken);
-
             // Trigger a re-fetch of comments
             triggerRefreshComments();
-            setValues({
-                text: ''
-            })
             toast.success("Comment created");
         } catch (error) {
             console.error('Error in addCommentHandler:', error);
