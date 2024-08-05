@@ -55,7 +55,6 @@ exports.updateUsersDeletePerfumeComments = async (perfumeId) => {
         
         // Loop through each comment and update the user document
         for (const comment of comments) {
-            console.log(comment.owner);
             await User.findByIdAndUpdate(
                 comment.owner,
                 { $pull: { comments: comment._id } }

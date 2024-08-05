@@ -38,7 +38,6 @@ export default function PerfumeComments({ userProps: user }) {
             triggerRefreshComments();
             toast.success("Comment created");
         } catch (error) {
-            console.error('Error in addCommentHandler:', error);
             if (error.message) {
                 toast.error(error.message);
             } else {

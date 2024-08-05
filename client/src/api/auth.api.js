@@ -27,7 +27,6 @@ export const getUserById = async (userId) => {
         const response = await axios.get(`http://localhost:3000/api/user/${userId}`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching user by ID:', error);
         throw error;
     }
 };

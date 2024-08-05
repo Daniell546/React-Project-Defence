@@ -10,20 +10,14 @@ import { useCart } from "../../contexts/CartContext";
 
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
-    const { isAuthenticated } = useContext(AuthContext);
-    const [user, setUser] = useState({});
+    const { isAuthenticated, user } = useContext(AuthContext);
     const [isOwner, setIsOwner] = useState(false);
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
     const { addToCart } = useCart();
+    console.log('outside');
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            const userData = JSON.parse(localStorage.getItem('user'));
-            setUser(userData);
-        }
-    }, [isAuthenticated]);
-
+    // This hook is triggered when either perfume's, or user;s value, is being changed!
     useEffect(() => {
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
@@ -82,7 +76,7 @@ export default function PerfumeDetails() {
                         </>
                     )}
 
-                    {isAuthenticated && !isOwner &&(
+                    {isAuthenticated && !isOwner && (
                         <div className="addCart">
                             <button onClick={addToCartHandler}>Add to cart</button>
                         </div>
