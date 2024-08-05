@@ -20,6 +20,7 @@ const perfumeModel = new mongoose.Schema({
         required: [true, JSON.stringify('Price required!')],
         type: Number,
         minLength: 0,
+        minValue: [1, JSON.stringify("Price must be positive number!")]
     },
     description: {
         required: [true, JSON.stringify('Short description required!')],

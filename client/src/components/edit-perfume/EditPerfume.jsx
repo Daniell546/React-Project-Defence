@@ -5,6 +5,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const initialValues = {
+    brand: '',
+    model: '',
+    price: '',
+    imageUrl: '',
+    description: '',
+};
+
 export default function EditPerfume() {
     const { perfumeId } = useParams();
     const [perfume] = useGetOnePerfume(perfumeId);
@@ -12,7 +20,7 @@ export default function EditPerfume() {
     const editPerfumeHandler = useEditPerfume();
     const navigate = useNavigate();
 
-    const createHandler = async (values) => {
+    const editHandler = async (values) => {
         try {
             await editPerfumeHandler(perfumeId, values)
             navigate(`/perfume/${perfumeId}/details`)
@@ -24,27 +32,19 @@ export default function EditPerfume() {
     }
 
 
-    const initialValues = {
-        brand: '',
-        model: '',
-        price: '',
-        imageUrl: '',
-        description: '',
-    };
+    const { values, changeHandler, submitHandler, resetForm } = useForm(Object.assign(initialValues, perfume), editHandler);
 
-    const { values, changeHandler, submitHandler, resetForm } = useForm(initialValues, createHandler);
-
-    useEffect(() => {
-        if (perfume) {
-            resetForm({
-                brand: perfume.brand || '',
-                model: perfume.model || '',
-                price: perfume.price || '',
-                imageUrl: perfume.imageUrl || '',
-                description: perfume.description || '',
-            });
-        }
-    }, [perfume, resetForm]);
+    // useEffect(() => {
+    //     if (perfume) {
+    //         resetForm({
+    //             brand: perfume.brand || '',
+    //             model: perfume.model || '',
+    //             price: perfume.price || '',
+    //             imageUrl: perfume.imageUrl || '',
+    //             description: perfume.description || '',
+    //         });
+    //     }
+    // }, [perfume, resetForm]);
 
     if (!perfume) {
         return <div>Loading...</div>;

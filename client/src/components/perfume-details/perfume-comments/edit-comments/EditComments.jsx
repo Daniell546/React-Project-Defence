@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useEditComment, useGetOneComment } from "../../../../hooks/useComments";
 
+const initialValues = {
+    comment: ''
+};
+
 export default function EditComments() {
     const { commentId } = useParams();
     const [comment] = useGetOneComment(commentId)
@@ -21,20 +25,9 @@ export default function EditComments() {
         }
     }
 
+    const { values, changeHandler, submitHandler } = useForm(Object.assign(initialValues, comment), editHandler);
 
-    const initialValues = {
-        comment: ''
-    };
 
-    const { values, changeHandler, submitHandler, resetForm } = useForm(initialValues, editHandler);
-
-    useEffect(() => {
-        if (comment) {
-            resetForm({
-                comment: comment.comment || '',
-            });
-        }
-    }, [comment, resetForm]);
 
     if (!comment) {
         return <div>Loading...</div>;

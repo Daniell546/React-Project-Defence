@@ -3,11 +3,13 @@ import { useSearchPerfumes } from "../../hooks/usePerfumes";
 
 import { Link } from "react-router-dom";
 
+const initialValues = {
+    text: '',
+    criteria: 'brand'
+}
+
 export default function Search() {
-    const { values, changeHandler } = useForm({
-        text: '',
-        criteria: 'brand'
-    });
+    const { values, changeHandler } = useForm(initialValues);
 
     const [perfumes] = useSearchPerfumes(values.text, values.criteria);
 

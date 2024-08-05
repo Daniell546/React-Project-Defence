@@ -37,7 +37,7 @@ function App() {
             <div className="box">
                 <CartProvider>
                     <Header />
-                    <ToastContainer position="bottom-left" draggable theme="colored" autoClose={2000} closeOnClick />
+                    <ToastContainer position="bottom-left" draggable theme="colored" autoClose={2000} closeOnClick stacked={true}/>
                     <main id="main-content">
                         <Routes>
                             <Route path="/" element={<Home />} />

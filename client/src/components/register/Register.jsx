@@ -4,6 +4,13 @@ import { useForm } from "../../hooks/useForm";
 
 import { toast } from 'react-toastify';
 
+const initialValues = {
+    email: "",
+    phoneNumber: "",
+    password: "",
+    rePass: ""
+}
+
 export default function Register() {
 
     const register = useRegister();
@@ -20,13 +27,8 @@ export default function Register() {
     }
 
     const { values, changeHandler, submitHandler }
-        = useForm({
-            email: "",
-            phoneNumber: "",
-            password: "",
-            rePass: ""
-        },
-            registerHandler)
+        = useForm(initialValues, registerHandler)
+        
     return (
         <section className="section-register">
             <div className="wrapper">

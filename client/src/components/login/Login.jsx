@@ -4,27 +4,30 @@ import { useForm } from "../../hooks/useForm";
 
 import { toast } from 'react-toastify';
 
+const initialValues = {
+    email: "",
+    password: "",
+}
+
 export default function Login() {
 
     const login = useLogin();
     const navigate = useNavigate();
+    const loginHandler = async ({ email, password }) => {
+        try {
+            await login(email, password);
+            toast.success('Log in successfully')
+            navigate('/');
+
+        } catch (error) {
+            toast.error(error)
+
+        }
+    }
 
     const { values, changeHandler, submitHandler } = useForm(
-        {
-            email: "",
-            password: "",
-        },
-        async ({ email, password }) => {
-            try {
-                await login(email, password);
-                toast.success('Log in successfully')
-                navigate('/');
-                
-            } catch (error) {
-                toast.error(error)
-
-            }
-        }
+        initialValues,
+        loginHandler
     )
 
 

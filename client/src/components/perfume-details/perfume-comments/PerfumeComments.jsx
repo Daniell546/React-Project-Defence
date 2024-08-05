@@ -7,6 +7,10 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { getUserById } from "../../../api/auth.api";
 import { deleteComment } from "../../../api/comments-api"
 
+const initialValues = {
+    text: '',
+}
+
 export default function PerfumeComments({ userProps: user }) {
     const { perfumeId } = useParams();
     const { isAuthenticated, changeAuthState, user: authUser } = useContext(AuthContext);
@@ -74,7 +78,7 @@ export default function PerfumeComments({ userProps: user }) {
     };
 
     const { values, changeHandler, submitHandler, setValues } = useForm(
-        { text: "" },
+        initialValues,
         addCommentHandler
     );
 

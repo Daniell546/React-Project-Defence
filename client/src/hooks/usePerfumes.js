@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import perfumesAPI from "../api/perfumes-api";
+import perfumesAPI, { getPerfumesByUser } from "../api/perfumes-api";
 import authAPI from "../api/auth.api";
 
 export function useGetAllPerfumes() {
@@ -55,4 +55,19 @@ export function useSearchPerfumes(text, criteria) {
     }, [text, criteria]);
 
     return [perfumes, setPerfumes];
+}
+
+
+export function useGetPerfumesByUser(id) {
+    const [perfumes, setPerfumes] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const result = await getPerfumesByUser(id);
+            console.log(result);
+            setPerfumes(result)
+        })()
+    }, [])
+    
+    return perfumes
 }

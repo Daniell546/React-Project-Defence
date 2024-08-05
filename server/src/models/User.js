@@ -4,12 +4,14 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
+        match: [/^[a-zA-Z0-9._%+-]{5,}@(gmail\.com|gmail\.bg|abv\.com|abv\.bg)/, JSON.stringify("Email must be at least 5 symbols long with proper domain!")],
         required: [true, JSON.stringify("Email is required!")],
         unique: [true, "Email already exist..."],
     },
     phonenumber: {
         required: [true, JSON.stringify("Phonenumber is required!")],
         type: Number,
+        min: [1, JSON.stringify("Phonenumber must be positive number!")],
     },
     password: {
         required: [true, JSON.stringify("Password is required!")],

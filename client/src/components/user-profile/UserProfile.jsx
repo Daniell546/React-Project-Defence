@@ -1,32 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "../../hooks/useForm";
-
+import { AuthContext } from "../../contexts/AuthContext";
+import { useGetPerfumesByUser } from "../../hooks/usePerfumes";
+import { Link } from "react-router-dom";
 export default function UserProfile() {
-
-    const [toogleEdit, setToggleEdit] = useState(false)
-
-    const { values, changeHandler, submitHandler } = useForm({
-        email: '',
-        username: ''
-    },
-        async ({ email, username }) => {
-            try {
-
-            } catch (error) {
-
-            }
-        }
-    )
-
-    const toggleHandler = (e) => {
-        e.preventDefault();
-        setToggleEdit(old => !old)
-    }
-
-    const editHandler = () => {
-
-    }
-
+    // const [user, setUser] = useState({})
+    const {user} = useContext(AuthContext);
+    
+    const perfumes = useGetPerfumesByUser(user._id);
+    
     return (
         <section className="section-profile">
             <h3>Your posts:</h3>
@@ -35,20 +17,40 @@ export default function UserProfile() {
                     <div className="media">
                         <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg" alt="" />
                     </div>
-
                     <div className="info">
-                        <div className="username">
-                            <h4>Username: Daniel</h4>
-                        </div>
                         <div className="email">
-                            <h5>Email: danitud@abv.bg</h5>
+                            <h5>Email: {user.email}</h5>
                         </div>
-
                     </div>
 
 
                 </div>
             </div>
+
+            <div className="flex-columns c2">
+                    
+                    {perfumes.length > 0
+                    ? perfumes.map(perfume => (
+                        <article key={perfume._id}>
+                        <Link to={`/perfume/${perfume._id}/details`}>
+                            <div className="card">
+                                <div className="media">
+                                    <img
+                                        src={perfume.imageUrl}
+                                        alt=""
+                                    />
+                                </div>
+                                <h4 className="brand">{perfume.brand}</h4>
+                                <h5 className="model">{perfume.model}</h5>
+                            </div>
+                            <div className="price">
+                                <span>${perfume.price}</span>
+                            </div>
+                        </Link>
+                    </article>
+                    )):
+                    <div className="emptyContainer">No perfumes at this moment :(</div>}
+                </div>
         </section>
     );
 }

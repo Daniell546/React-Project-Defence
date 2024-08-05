@@ -16,11 +16,11 @@ exports.edit = async (id, perfume, owner) => {
 
 exports.delete = (id) => Perfume.findByIdAndDelete(id);
 
-exports.getByUser = async (owner) => {
+exports.getByUser = async (id) => {
     let all = await Perfume.find().lean();
     const newArr = [];
     for (let p of all) {
-        if (p.owner == owner._id) {
+        if (p.owner == id) {
             newArr.push(p);
         }
     }
