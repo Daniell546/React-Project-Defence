@@ -15,9 +15,7 @@ import Cart from "./components/cart/Cart";
 import { AuthContext } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { ToastContainer } from 'react-toastify';
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import 'react-toastify/dist/ReactToastify.css';
-import Checkout from "./components/cart/checkout/Checkout";
 
 function App() {
     const [authState, setAuthState] = useState({});
@@ -34,20 +32,12 @@ function App() {
         changeAuthState,
     };
 
-    // PayPal options
-    const initialOptions = {
-        "client-id": "AWDiY4d3z2OI3N5NJ_dDsX4t3K7BNrCRO5vXWU98mjb6eH5OZYs32Gain8nlwVe9dc_dyfKmmbWGb1Wd", // Replace with your actual client ID
-        currency: "USD",
-        intent: "capture",
-    };
-
     return (
         <AuthContext.Provider value={contexAuthData}>
             <div className="box">
                 <CartProvider>
                     <Header />
                     <ToastContainer position="bottom-left" draggable theme="colored" autoClose={2000} closeOnClick />
-
                     <main id="main-content">
                         <Routes>
                             <Route path="/" element={<Home />} />
@@ -59,15 +49,7 @@ function App() {
                             <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
                             <Route path="/perfume/:perfumeId/edit" element={<EditPerfume />} />
                             <Route path="/perfume/comment/:commentId/edit" element={<EditComments />} />
-                            
-                            {/* Cart route with PayPal provider */}
-                            <Route path="/cart" element={
-                                <PayPalScriptProvider options={initialOptions}>
-                                    <Cart />
-                                </PayPalScriptProvider>
-                            }>
-                                <Route path="checkout" element={<Checkout />} />
-                            </Route>
+                            <Route path="/cart" element={<Cart />} />
                         </Routes>
                     </main>
                 </CartProvider>
