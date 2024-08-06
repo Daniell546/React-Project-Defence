@@ -17,6 +17,7 @@ import { CartProvider } from "./contexts/CartContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateGuard from "./components/common/PrivateGuard";
+import PublicGuard from "./components/common/PublicGuard";
 
 function App() {
     const [authState, setAuthState] = useState({});
@@ -42,10 +43,13 @@ function App() {
                     <main id="main-content">
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/login" element={<Login />} />
                             <Route path="/search" element={<Search />} />
                             <Route path="/perfume/:perfumeId/details" element={<PerfumeDetails />} />
+
+                            <Route element={<PublicGuard />}>
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/login" element={<Login />} />
+                            </Route>
 
                             <Route element={<PrivateGuard />}>
                                 <Route path="/user-profile" element={<UserProfile />} />
