@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { getUserById } from "../../../api/auth.api";
 import { deleteComment } from "../../../api/comments-api"
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const initialValues = {
     text: '',
@@ -36,6 +37,7 @@ export default function PerfumeComments({ userProps: user }) {
             changeAuthState(updatedUserWithToken);
             // Trigger a re-fetch of comments
             triggerRefreshComments();
+            setValues(initialValues)
             toast.success("Comment created");
         } catch (error) {
             if (error.message) {

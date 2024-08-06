@@ -23,7 +23,7 @@ export default function EditPerfume() {
     const editHandler = async (values) => {
         try {
             await editPerfumeHandler(perfumeId, values)
-            navigate(`/perfume/${perfumeId}/details`)
+            navigate(`/`)
             toast.success('Edit successful')
         } catch (error) {
             toast.error(error)

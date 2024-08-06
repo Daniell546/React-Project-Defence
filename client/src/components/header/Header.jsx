@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faCartShopping, faUser, faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { AuthContext, useAuth } from "../../contexts/AuthContext";
 
@@ -44,15 +44,19 @@ export default function Header() {
                 <nav className="main-nav">
                     <ul>
                         <li>
-                            <Link to="/search">Search</Link>
+                            <Link to="/search"><FontAwesomeIcon icon={faSearch} /></Link>
                         </li>
                         {isAuthenticated ? (
                             <>
                                 <li>
-                                    <Link to="/create">Create</Link>
+                                    <Link to="/create"><FontAwesomeIcon icon={faPlus} /></Link>
                                 </li>
                                 <li>
-                                    <Link to="/user-profile">{user.email}'s profile</Link>
+                                    <Link to="/user-profile"><FontAwesomeIcon icon={faUser} /></Link>
+                                </li>
+                                <li>
+                                    <Link to='/cart'>
+                                    <FontAwesomeIcon icon={faCartShopping} /></Link>
                                 </li>
                                 <li>
                                     <Link to="#" onClick={logoutHandler}>Logout</Link>
