@@ -57,7 +57,7 @@ export default function EditPerfume() {
                     <h4>Edit poster</h4>
                     <input type="text" name="brand" value={values.brand} onChange={changeHandler} placeholder="Enter brand name..." />
                     <input type="text" name="model" value={values.model} onChange={changeHandler} placeholder="Enter model..." />
-                    <input type="text" name="price" value={values.price} onChange={changeHandler} placeholder="Enter price..." />
+                    <input type="number" name="price" value={values.price} onChange={changeHandler} placeholder="Enter price..." />
                     <input type="text" name="imageUrl" value={values.imageUrl} onChange={changeHandler} placeholder="Enter imageUrl..." />
                     <input type="text" name="description" value={values.description} onChange={changeHandler} placeholder="Enter description..." />
                     <button>Edit</button>

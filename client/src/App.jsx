@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import PerfumeDetails from "./components/perfume-details/PerfumeDetails";
@@ -12,7 +11,7 @@ import EditPerfume from "./components/edit-perfume/EditPerfume";
 import Footer from "./components/footer/Footer";
 import EditComments from "./components/perfume-details/perfume-comments/edit-comments/EditComments";
 import Cart from "./components/cart/Cart";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,24 +19,10 @@ import PrivateGuard from "./components/common/PrivateGuard";
 import PublicGuard from "./components/common/PublicGuard";
 
 function App() {
-    const [authState, setAuthState] = useState({});
-
-    const changeAuthState = (state) => {
-        setAuthState(state);
-        localStorage.setItem('user', JSON.stringify(state));
-    };
-
-    const user = JSON.parse(localStorage.getItem('user'));
-    const contexAuthData = {
-        user,
-        isAuthenticated: !!user,
-        changeAuthState,
-    };
-
     return (
-        <AuthContext.Provider value={contexAuthData}>
-            <div className="box">
-                <CartProvider>
+        <AuthProvider>
+            <CartProvider>
+                <div className="box">
                     <Header />
                     <ToastContainer position="bottom-left" draggable theme="colored" autoClose={2000} closeOnClick stacked={true} />
                     <main id="main-content">
@@ -60,10 +45,10 @@ function App() {
                             </Route>
                         </Routes>
                     </main>
-                </CartProvider>
-                <Footer />
-            </div>
-        </AuthContext.Provider>
+                    <Footer />
+                </div>
+            </CartProvider>
+        </AuthProvider>
     );
 }
 

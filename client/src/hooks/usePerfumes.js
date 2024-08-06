@@ -24,7 +24,6 @@ export function useGetOnePerfume(perfumeId) {
             setPerfume(result);
         })();
     }, [perfumeId]);
-    // console.log('1', perfume);
     
     return [perfume];
 }

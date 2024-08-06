@@ -15,7 +15,6 @@ export default function PerfumeDetails() {
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
     const { addToCart } = useCart();
-    console.log('outside');
 
     // This hook is triggered when either perfume's, or user;s value, is being changed!
     useEffect(() => {

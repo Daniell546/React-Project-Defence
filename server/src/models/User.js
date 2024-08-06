@@ -38,6 +38,12 @@ userSchema.methods = {
 //     }
 // });
 
+userSchema.virtual("rePass").set(function (value) {
+    if (this.password != value) {
+        throw new Error("Passwords don't match");
+    }
+});
+
 userSchema.pre("save", async function () {
     const hash = await bcrypt.hash(this.password, 10);
 

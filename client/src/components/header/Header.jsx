@@ -4,7 +4,7 @@ import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext, useAuth } from "../../contexts/AuthContext";
 
 import { toast } from 'react-toastify';
 import { useCart } from "../../contexts/CartContext";
@@ -12,7 +12,7 @@ import { useCart } from "../../contexts/CartContext";
 export default function Header() {
 
     const navigate = useNavigate();
-    const { isAuthenticated, changeAuthState, user } = useContext(AuthContext);
+    const { isAuthenticated, changeAuthState, user } = useAuth();
     const { clearCart } = useCart();
 
     const logoutHandler = (e) => {
