@@ -38,6 +38,9 @@ export default function PerfumeDetails() {
         navigate('/cart');
     };
 
+    const handleGoBack = () => {
+        navigate(-1); // This navigates to the previous page in the history stack
+    };
     return (
         <section className="section-details">
             <div className="wrapper">
@@ -56,8 +59,8 @@ export default function PerfumeDetails() {
                 </div>
                 <div className="buttons">
                     <div className="addCart">
-                        <button>
-                            <Link to={"/"}>Back</Link>
+                        <button onClick={handleGoBack}>
+                            Back
                         </button>
                     </div>
                     {isOwner && isAuthenticated && (

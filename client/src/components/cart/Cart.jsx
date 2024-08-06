@@ -32,7 +32,7 @@ export default function Cart() {
                   <img src={cartItem.perfume.imageUrl} alt={cartItem.perfume.brand} />
                 </div>
                 <div>
-                  < Link to={`/home/${cartItem.perfume._id}`}>
+                  < Link to={`/perfume/${cartItem.perfume._id}/details`}>
                     {cartItem.perfume.brand}
                   </ Link>
                 </div>
