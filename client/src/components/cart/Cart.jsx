@@ -10,7 +10,8 @@ export default function Cart() {
   const isEmpty = cart.items.length === 0;
 
   const payHandler = () => {
-    toast.success('Payment went successful')
+    toast.success(`Payment successful $${cart.totalPrice.toFixed(2)}`)
+    clearCart();
     navigate('/')
   }
 

@@ -27,7 +27,7 @@ export default function Header() {
             toast.error('Logout unsuccessful')
         } finally{
 
-            // navigate('/')
+            navigate('/')
         }
         
     }
