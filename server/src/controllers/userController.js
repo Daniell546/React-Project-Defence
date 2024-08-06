@@ -45,15 +45,15 @@ router.post("/login", (req, res) => {
             user = bsonToJson(user);
             const token = createToken({ id: user._id });
 
-            if (process.env.NODE_ENV === "production") {
-                res.cookie(authCookieName, token, {
-                    httpOnly: true,
-                    sameSite: "none",
-                    secure: true,
-                });
-            } else {
-                res.cookie(authCookieName, token, { httpOnly: true });
-            }
+            // if (process.env.NODE_ENV === "production") {
+            //     res.cookie(authCookieName, token, {
+            //         httpOnly: true,
+            //         sameSite: "none",
+            //         secure: true,
+            //     });
+            // } else {
+            //     res.cookie(authCookieName, token, { httpOnly: true });
+            // }
             res.status(200).send({ ...user, token });
         })
         .catch((err) => {
@@ -79,15 +79,15 @@ router.post("/register", async (req, res) => {
         .then((createdUser) => {
             createdUser = bsonToJson(createdUser);
             const token = createToken({ id: createdUser._id });
-            if (process.env.NODE_ENV === "production") {
-                res.cookie(authCookieName, token, {
-                    httpOnly: true,
-                    sameSite: "none",
-                    secure: true,
-                });
-            } else {
-                res.cookie(authCookieName, token, { httpOnly: true });
-            }
+            // if (process.env.NODE_ENV === "production") {
+            //     res.cookie(authCookieName, token, {
+            //         httpOnly: true,
+            //         sameSite: "none",
+            //         secure: true,
+            //     });
+            // } else {
+            //     res.cookie(authCookieName, token, { httpOnly: true });
+            // }
             res.status(200).send({ ...createdUser, token });
         })
         .catch((err) => {
@@ -104,7 +104,8 @@ const bsonToJson = (data) => {
 
 //  Log out
 router.post("/logout", auth(), (req, res) => {
-    const token = req.cookies[authCookieName];
+    const authHeader = req.headers["authorization"];
+    re
     TokenBlacklist.create({ token })
         .then(() => {
             

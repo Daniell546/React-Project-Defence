@@ -6,18 +6,18 @@ const commentModel = new mongoose.Schema({
     },
     comment: {
         type: String,
-        required: [true, JSON.stringify('Comments text required')],
+        required: [true, "Comments text required"],
     },
     owner: {
         type: mongoose.Types.ObjectId,
-        required: [true, JSON.stringify('Authentication required')],
-        ref: 'User'
+        required: [true, "Authentication required"],
+        ref: "User",
     },
     perfume: {
         type: mongoose.Types.ObjectId,
-        required: [true, JSON.stringify('Perfume required')],
-        ref: 'Perfume'
-    }
+        required: [true, "Perfume required"],
+        ref: "Perfume",
+    },
 });
 
 const Comment = mongoose.model("Comment", commentModel);

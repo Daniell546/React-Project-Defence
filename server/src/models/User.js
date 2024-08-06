@@ -4,24 +4,27 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        match: [/^[a-zA-Z0-9._%+-]{5,}@(gmail\.com|gmail\.bg|abv\.com|abv\.bg)/, JSON.stringify("Email must be at least 5 symbols long with proper domain!")],
-        required: [true, JSON.stringify("Email is required!")],
+        match: [
+            /^[a-zA-Z0-9._%+-]{5,}@(gmail\.com|gmail\.bg|abv\.com|abv\.bg)/,
+            "Email must be at least 5 symbols long with proper domain!",
+        ],
+        required: [true, "Email is required!"],
         unique: [true, "Email already exist..."],
     },
     phonenumber: {
-        required: [true, JSON.stringify("Phonenumber is required!")],
+        required: [true, "Phonenumber is required!"],
         type: Number,
-        min: [1, JSON.stringify("Phonenumber must be positive number!")],
+        min: [1, "Phonenumber must be positive number!"],
     },
     password: {
-        required: [true, JSON.stringify("Password is required!")],
+        required: [true, "Password is required!"],
         type: String,
     },
     owner_id: {
         type: mongoose.Types.ObjectId,
         ref: "User",
     },
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] 
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 userSchema.methods = {
