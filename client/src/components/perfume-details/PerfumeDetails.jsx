@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOnePerfume } from "../../hooks/usePerfumes";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import PerfumeComments from "./perfume-comments/PerfumeComments";
 import perfumesAPI from "../../api/perfumes-api";
@@ -10,18 +10,18 @@ import { useCart } from "../../contexts/CartContext";
 
 export default function PerfumeDetails() {
     const { perfumeId } = useParams();
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { isAuthenticated, user } = useAuth()
     const [isOwner, setIsOwner] = useState(false);
     const [perfume] = useGetOnePerfume(perfumeId);
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
-    // This hook is triggered when either perfume's, or user;s value, is being changed!
+    // This hook is triggered when perfume's value is being changed!
     useEffect(() => {
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
         }
-    }, [user, perfume]);
+    }, [perfume]);
 
     const deleteHandler = async () => {
         try {
@@ -29,7 +29,12 @@ export default function PerfumeDetails() {
             navigate("/");
             toast.success("Successful deletion");
         } catch (error) {
-            toast.error(error.message);
+            if (error.message) {
+                toast.error(error.message);
+            } else {
+                toast.error(error);
+
+            }
         }
     };
 

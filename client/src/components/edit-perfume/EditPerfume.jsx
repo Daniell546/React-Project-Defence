@@ -32,19 +32,8 @@ export default function EditPerfume() {
     }
 
 
-    const { values, changeHandler, submitHandler, resetForm } = useForm(Object.assign(initialValues, perfume), editHandler);
+    const { values, changeHandler, submitHandler } = useForm(Object.assign(initialValues, perfume), editHandler);
 
-    // useEffect(() => {
-    //     if (perfume) {
-    //         resetForm({
-    //             brand: perfume.brand || '',
-    //             model: perfume.model || '',
-    //             price: perfume.price || '',
-    //             imageUrl: perfume.imageUrl || '',
-    //             description: perfume.description || '',
-    //         });
-    //     }
-    // }, [perfume, resetForm]);
 
     if (!perfume) {
         return <div>Loading...</div>;

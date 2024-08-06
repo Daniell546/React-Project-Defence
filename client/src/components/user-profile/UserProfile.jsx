@@ -1,14 +1,13 @@
-import { useContext, useState } from "react";
-import { useForm } from "../../hooks/useForm";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useGetPerfumesByUser } from "../../hooks/usePerfumes";
 import { Link } from "react-router-dom";
+
 export default function UserProfile() {
-    // const [user, setUser] = useState({})
-    const {user} = useContext(AuthContext);
-    
+
+    const { user } = useAuth()
+
     const perfumes = useGetPerfumesByUser(user._id);
-    
+
     return (
         <section className="section-profile">
             <h3>Your posts:</h3>
@@ -28,29 +27,29 @@ export default function UserProfile() {
             </div>
 
             <div className="flex-columns c2">
-                    
-                    {perfumes.length > 0
+
+                {perfumes.length > 0
                     ? perfumes.map(perfume => (
                         <article key={perfume._id}>
-                        <Link to={`/perfume/${perfume._id}/details`}>
-                            <div className="card">
-                                <div className="media">
-                                    <img
-                                        src={perfume.imageUrl}
-                                        alt=""
-                                    />
+                            <Link to={`/perfume/${perfume._id}/details`}>
+                                <div className="card">
+                                    <div className="media">
+                                        <img
+                                            src={perfume.imageUrl}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <h4 className="brand">{perfume.brand}</h4>
+                                    <h5 className="model">{perfume.model}</h5>
                                 </div>
-                                <h4 className="brand">{perfume.brand}</h4>
-                                <h5 className="model">{perfume.model}</h5>
-                            </div>
-                            <div className="price">
-                                <span>${perfume.price}</span>
-                            </div>
-                        </Link>
-                    </article>
-                    )):
+                                <div className="price">
+                                    <span>${perfume.price}</span>
+                                </div>
+                            </Link>
+                        </article>
+                    )) :
                     <div className="emptyContainer">No perfumes at this moment :(</div>}
-                </div>
+            </div>
         </section>
     );
 }

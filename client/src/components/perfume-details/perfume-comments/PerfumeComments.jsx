@@ -2,22 +2,20 @@ import { useForm } from "../../../hooks/useForm";
 import { useCreateComment, useGetCommentsByPerfume } from "../../../hooks/useComments";
 import { toast } from "react-toastify";
 import { Link, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { getUserById } from "../../../api/auth.api";
 import { deleteComment } from "../../../api/comments-api"
-import { text } from "@fortawesome/fontawesome-svg-core";
 
 const initialValues = {
     text: '',
 }
 
 export default function PerfumeComments({ userProps: user }) {
+
     const { perfumeId } = useParams();
-    const { isAuthenticated, changeAuthState, user: authUser } = useContext(AuthContext);
+    const { isAuthenticated, changeAuthState, user: authUser } = useAuth();
     const commentCreateHandler = useCreateComment();
     const [comments, triggerRefreshComments] = useGetCommentsByPerfume(perfumeId);
-    const [isOwner, setIsOwner] = useState(false);
 
     const addCommentHandler = async (values) => {
         try {
@@ -37,7 +35,9 @@ export default function PerfumeComments({ userProps: user }) {
             changeAuthState(updatedUserWithToken);
             // Trigger a re-fetch of comments
             triggerRefreshComments();
+
             setValues(initialValues)
+
             toast.success("Comment created");
         } catch (error) {
             if (error.message) {

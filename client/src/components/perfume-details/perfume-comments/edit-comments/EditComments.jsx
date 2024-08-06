@@ -28,11 +28,6 @@ export default function EditComments() {
     const { values, changeHandler, submitHandler } = useForm(Object.assign(initialValues, comment), editHandler);
 
 
-
-    if (!comment) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <section className="section-comment-edit">
             <div className="comments">
