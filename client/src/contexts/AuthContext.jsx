@@ -1,27 +1,30 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext({
     user: {
-        email: '',
-        phoneNumber: '',
-        _id: '',
+        email: "",
+        phoneNumber: "",
+        _id: "",
     },
-    isAuthenticated: !!localStorage.getItem('user'),
+    isAuthenticated: !!localStorage.getItem('auth'),
     changeAuthState: (authState = {}) => null,
 });
-
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [authState, setAuthState] = useState({});
+    const [authState, setAuthState] = useState({
+        email: "",
+        phoneNumber: "",
+        _id: "",
+    });
 
     const changeAuthState = (state) => {
         setAuthState(state);
-        localStorage.setItem('user', JSON.stringify(state));
+        localStorage.setItem("user", JSON.stringify(state));
     };
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     const contexAuthData = {
         user,
         isAuthenticated: !!user,
