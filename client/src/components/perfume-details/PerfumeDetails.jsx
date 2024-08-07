@@ -18,6 +18,8 @@ export default function PerfumeDetails() {
 
     // This hook is triggered when perfume's value is being changed!
     useEffect(() => {
+        console.log('useEffect');
+        
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
         }
@@ -91,7 +93,7 @@ export default function PerfumeDetails() {
                 </div>
             </div>
 
-            <PerfumeComments userProps={user} />
+            <PerfumeComments />
         </section>
     );
 }

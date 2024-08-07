@@ -10,10 +10,10 @@ const initialValues = {
     text: '',
 }
 
-export default function PerfumeComments({ userProps: user }) {
+export default function PerfumeComments() {
 
     const { perfumeId } = useParams();
-    const { isAuthenticated, changeAuthState, user: authUser } = useAuth();
+    const { isAuthenticated, changeAuthState, user } = useAuth();
     const commentCreateHandler = useCreateComment();
     const [comments, triggerRefreshComments] = useGetCommentsByPerfume(perfumeId);
 
@@ -26,7 +26,7 @@ export default function PerfumeComments({ userProps: user }) {
             const updatedUser = await getUserById(userId);
 
             // Preserve the token
-            const updatedUserWithToken = { ...updatedUser, token: authUser.token };
+            const updatedUserWithToken = { ...updatedUser, token: user.token };
 
             // Update local storage
             localStorage.setItem("user", JSON.stringify(updatedUserWithToken));
@@ -51,13 +51,13 @@ export default function PerfumeComments({ userProps: user }) {
     const deleteCommentHandler = async (id) => {
         try {
             const userId = user._id;
-            await deleteComment(id, perfumeId, authUser);
+            await deleteComment(id, perfumeId, user);
 
             // Fetch updated user info from the server
             const updatedUser = await getUserById(userId);
 
             // Preserve the token
-            const updatedUserWithToken = { ...updatedUser, token: authUser.token };
+            const updatedUserWithToken = { ...updatedUser, token: user.token };
 
             // Update local storage
             localStorage.setItem("user", JSON.stringify(updatedUserWithToken));
