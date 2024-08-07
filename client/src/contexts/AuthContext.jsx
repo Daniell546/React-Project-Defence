@@ -6,18 +6,14 @@ export const AuthContext = createContext({
         phoneNumber: "",
         _id: "",
     },
-    isAuthenticated: !!localStorage.getItem('auth'),
+    isAuthenticated: !!localStorage.getItem('user'),
     changeAuthState: (authState = {}) => null,
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [authState, setAuthState] = useState({
-        email: "",
-        phoneNumber: "",
-        _id: "",
-    });
+    const [authState, setAuthState] = useState({});
 
     const changeAuthState = (state) => {
         setAuthState(state);

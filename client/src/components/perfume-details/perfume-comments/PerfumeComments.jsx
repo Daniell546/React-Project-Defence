@@ -10,7 +10,7 @@ const initialValues = {
     text: '',
 }
 
-export default function PerfumeComments({ userProps: user }) {
+export default function PerfumeComments({ isOwner }) {
 
     const { perfumeId } = useParams();
     const { isAuthenticated, changeAuthState, user } = useAuth();
