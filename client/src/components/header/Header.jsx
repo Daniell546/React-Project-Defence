@@ -19,7 +19,7 @@ export default function Header() {
         try {
             changeAuthState({})
             clearCart();
-            localStorage.clear();
+            localStorage.removeItem('user')
             toast.success('Logout successful')
             
         } catch (error) {

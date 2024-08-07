@@ -6,7 +6,7 @@ export const AuthContext = createContext({
         phoneNumber: '',
         _id: '',
     },
-    isAuthenticated: !!localStorage.getItem('auth'),
+    isAuthenticated: !!localStorage.getItem('user'),
     changeAuthState: (authState = {}) => null,
 });
 

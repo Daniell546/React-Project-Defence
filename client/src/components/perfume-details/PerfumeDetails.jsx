@@ -21,7 +21,7 @@ export default function PerfumeDetails() {
         if (user && perfume) {
             setIsOwner(user._id === perfume.owner);
         }
-    }, [perfume]);
+    }, [perfume, user]);
 
     const deleteHandler = async () => {
         try {
@@ -46,6 +46,7 @@ export default function PerfumeDetails() {
     const handleGoBack = () => {
         navigate(-1); // This navigates to the previous page in the history stack
     };
+
     return (
         <section className="section-details">
             <div className="wrapper">
@@ -91,7 +92,7 @@ export default function PerfumeDetails() {
                 </div>
             </div>
 
-            <PerfumeComments userProps={user} />
+            <PerfumeComments userProps={user} isOwner={isOwner}/>
         </section>
     );
 }
