@@ -10,7 +10,7 @@ const initialValues = {
     text: '',
 }
 
-export default function PerfumeComments({ isOwner }) {
+export default function PerfumeComments() {
 
     const { perfumeId } = useParams();
     const { isAuthenticated, changeAuthState, user } = useAuth();
@@ -108,7 +108,7 @@ export default function PerfumeComments({ isOwner }) {
                             <span className="title">@{comment.owner.email}</span>
                             <span className="text">{comment.comment}</span>
                         </div>
-                        {isOwner ? (
+                        {isAuthenticated && user._id == comment.owner._id ? (
                             <div className="comments-btn">
                                 <button onClick={() => deleteCommentHandler(comment._id)}>Delete</button>
                                 <Link to={`/perfume/comment/${comment._id}/edit`}><button>Edit</button></Link>
